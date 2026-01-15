@@ -1,0 +1,1102 @@
+import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
+
+const BioSync = () => {
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [expandedFaq, setExpandedFaq] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const whatsappNumber = "5511999999999";
+  const whatsappMessage = encodeURIComponent("Hi! I'm interested in learning more about peptide therapy at BioSync.");
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+  const categories = [
+    { id: 'all', name: 'All Therapies' },
+    { id: 'weight', name: 'Weight Loss' },
+    { id: 'recovery', name: 'Recovery' },
+    { id: 'antiaging', name: 'Anti-Aging' },
+    { id: 'wellness', name: 'Wellness' }
+  ];
+
+  const peptides = [
+    {
+      id: 1,
+      name: 'Semaglutide',
+      category: 'weight',
+      tagline: 'Revolutionary Weight Management',
+      description: 'A GLP-1 receptor agonist that regulates appetite, slows gastric emptying, and promotes significant, sustainable weight loss. FDA-approved and clinically proven.',
+      benefits: ['Appetite regulation', 'Blood sugar control', 'Cardiovascular benefits', 'Sustainable results'],
+      icon: '⚖️'
+    },
+    {
+      id: 2,
+      name: 'Tirzepatide',
+      category: 'weight',
+      tagline: 'Dual-Action Weight Loss',
+      description: 'The most advanced weight loss peptide combining GLP-1 and GIP receptor activation for enhanced metabolic effects and superior fat reduction.',
+      benefits: ['Dual hormone action', 'Enhanced metabolism', 'Improved insulin sensitivity', 'Greater efficacy'],
+      icon: '🎯'
+    },
+    {
+      id: 3,
+      name: 'BPC-157',
+      category: 'recovery',
+      tagline: 'The Wolverine Peptide',
+      description: 'A naturally-derived gastric peptide renowned for accelerating tissue repair, reducing inflammation, and promoting healing of muscles, tendons, and gut lining.',
+      benefits: ['Accelerated healing', 'Gut health restoration', 'Anti-inflammatory', 'Tendon & ligament repair'],
+      icon: '🔬'
+    },
+    {
+      id: 4,
+      name: 'TB-500',
+      category: 'recovery',
+      tagline: 'Cellular Regeneration',
+      description: 'Thymosin Beta-4 promotes cell migration, blood vessel formation, and collagen deposition for comprehensive tissue repair and enhanced flexibility.',
+      benefits: ['Cell regeneration', 'Improved flexibility', 'Wound healing', 'Reduced scarring'],
+      icon: '🧬'
+    },
+    {
+      id: 5,
+      name: 'CJC-1295 + Ipamorelin',
+      category: 'antiaging',
+      tagline: 'Growth Hormone Optimization',
+      description: 'A synergistic combination that stimulates natural growth hormone release without appetite increase, supporting muscle growth, fat loss, and cellular repair.',
+      benefits: ['Natural GH release', 'Improved sleep quality', 'Lean muscle gain', 'Fat metabolism'],
+      icon: '⚡'
+    },
+    {
+      id: 6,
+      name: 'Sermorelin',
+      category: 'antiaging',
+      tagline: 'Restore Your Youth',
+      description: "Stimulates the pituitary gland to naturally produce growth hormone, working with your body's rhythm for safer, gradual anti-aging benefits.",
+      benefits: ['Natural hormone production', 'Enhanced recovery', 'Mental clarity', 'Skin elasticity'],
+      icon: '✨'
+    },
+    {
+      id: 7,
+      name: 'AOD-9604',
+      category: 'weight',
+      tagline: 'Targeted Fat Burning',
+      description: 'A modified growth hormone fragment that specifically targets fat metabolism without affecting blood sugar or promoting tissue growth.',
+      benefits: ['Targeted fat loss', 'No blood sugar impact', 'Abdominal fat reduction', 'Cartilage repair'],
+      icon: '🔥'
+    },
+    {
+      id: 8,
+      name: 'NAD+',
+      category: 'wellness',
+      tagline: 'Cellular Energy Revival',
+      description: 'Essential coenzyme that powers cellular energy production, DNA repair, and metabolic function—declining with age but restorable through therapy.',
+      benefits: ['Cellular rejuvenation', 'Mental clarity', 'Energy boost', 'DNA repair'],
+      icon: '💎'
+    },
+    {
+      id: 9,
+      name: 'PT-141',
+      category: 'wellness',
+      tagline: 'Sexual Wellness',
+      description: 'Bremelanotide works directly on the nervous system to enhance libido and sexual function in both men and women, addressing desire at its source.',
+      benefits: ['Enhanced libido', 'Works on desire', 'Fast-acting', 'Non-hormonal approach'],
+      icon: '❤️'
+    },
+    {
+      id: 10,
+      name: 'Epithalon',
+      category: 'antiaging',
+      tagline: 'Longevity Peptide',
+      description: 'Activates telomerase to protect and lengthen telomeres—the cellular markers of biological age—promoting longevity at the DNA level.',
+      benefits: ['Telomere protection', 'Cellular longevity', 'Sleep improvement', 'Immune support'],
+      icon: '🧪'
+    }
+  ];
+
+  const faqs = [
+    {
+      q: 'What is peptide therapy?',
+      a: "Peptide therapy uses short chains of amino acids to send specific signals to cells, triggering targeted responses like healing, hormone production, or metabolism regulation. Unlike traditional medications, peptides work with your body's natural processes."
+    },
+    {
+      q: 'How are peptides administered?',
+      a: 'Most peptides are administered via subcutaneous injection using very small needles—similar to insulin injections. Some peptides are available as oral supplements or nasal sprays. Your treatment plan will specify the optimal method for your protocol.'
+    },
+    {
+      q: 'How long until I see results?',
+      a: "Results vary by peptide and individual. Some patients notice effects within days (BPC-157 for acute injuries), while others see gradual improvements over 8-12 weeks (growth hormone peptides). We'll set realistic expectations during your consultation."
+    },
+    {
+      q: 'Are peptides safe?',
+      a: 'When prescribed by qualified physicians and sourced from licensed compounding pharmacies, peptides have excellent safety profiles. All our peptides undergo rigorous quality testing, and we monitor your progress with regular lab work.'
+    },
+    {
+      q: 'Can peptides be combined with other treatments?',
+      a: 'Yes! Many peptides work synergistically together and can complement hormone replacement therapy, weight loss programs, and athletic performance protocols. We design comprehensive plans tailored to your goals.'
+    }
+  ];
+
+  const filteredPeptides = activeCategory === 'all'
+    ? peptides
+    : peptides.filter(p => p.category === activeCategory);
+
+  return (
+    <>
+      <Head>
+        <title>BioSync - Advanced Peptide Therapy</title>
+        <meta name="description" content="Experience precision medicine with physician-guided peptide protocols. From accelerated healing to optimized metabolism, we help you achieve measurable results backed by science." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <div style={{
+        fontFamily: '"DM Sans", system-ui, sans-serif',
+        backgroundColor: '#fafbfc',
+        color: '#1a2332',
+        minHeight: '100vh',
+        overflowX: 'hidden'
+      }}>
+        {/* Navigation */}
+        <nav style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+          padding: '1rem 2rem',
+          transition: 'all 0.3s ease',
+          background: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
+          backdropFilter: isScrolled ? 'blur(20px)' : 'none',
+          boxShadow: isScrolled ? '0 4px 30px rgba(0,0,0,0.1)' : 'none'
+        }}>
+          <div style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <div style={{
+              fontFamily: '"Playfair Display", serif',
+              fontSize: '1.75rem',
+              fontWeight: 600,
+              color: isScrolled ? '#0f766e' : 'white',
+              letterSpacing: '-0.02em'
+            }}>
+              Bio<span style={{ color: '#14b8a6' }}>Sync</span>
+            </div>
+            <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
+              {['Therapies', 'Benefits', 'Process', 'FAQ'].map(item => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="nav-link"
+                  style={{
+                    color: isScrolled ? '#1a2332' : 'rgba(255,255,255,0.9)',
+                    textDecoration: 'none',
+                    fontSize: '0.95rem',
+                    fontWeight: 500,
+                    letterSpacing: '0.02em'
+                  }}
+                >
+                  {item}
+                </a>
+              ))}
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="whatsapp-btn"
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  borderRadius: '50px',
+                  color: 'white',
+                  textDecoration: 'none',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem'
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Start Consultation
+              </a>
+            </div>
+          </div>
+        </nav>
+
+        {/* Hero Section */}
+        <section className="hero-gradient" style={{
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          {/* Decorative Elements */}
+          <div style={{
+            position: 'absolute',
+            top: '10%',
+            right: '5%',
+            width: '400px',
+            height: '400px',
+            background: 'radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(60px)'
+          }} className="float" />
+          <div style={{
+            position: 'absolute',
+            bottom: '20%',
+            left: '10%',
+            width: '300px',
+            height: '300px',
+            background: 'radial-gradient(circle, rgba(13, 148, 136, 0.1) 0%, transparent 70%)',
+            borderRadius: '50%',
+            filter: 'blur(40px)'
+          }} />
+
+          {/* DNA Helix Pattern */}
+          <div style={{
+            position: 'absolute',
+            right: '10%',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            opacity: 0.1
+          }}>
+            <svg width="200" height="400" viewBox="0 0 200 400">
+              {[...Array(20)].map((_, i) => (
+                <g key={i}>
+                  <circle cx={100 + Math.sin(i * 0.5) * 50} cy={i * 20} r="4" fill="#14b8a6"/>
+                  <circle cx={100 - Math.sin(i * 0.5) * 50} cy={i * 20} r="4" fill="#14b8a6"/>
+                  <line
+                    x1={100 + Math.sin(i * 0.5) * 50}
+                    y1={i * 20}
+                    x2={100 - Math.sin(i * 0.5) * 50}
+                    y2={i * 20}
+                    stroke="#14b8a6"
+                    strokeWidth="1"
+                    opacity="0.5"
+                  />
+                </g>
+              ))}
+            </svg>
+          </div>
+
+          <div style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: '8rem 2rem 4rem',
+            position: 'relative',
+            zIndex: 1
+          }}>
+            <div className="animate-in" style={{ maxWidth: '800px' }}>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                background: 'rgba(20, 184, 166, 0.15)',
+                padding: '0.5rem 1rem',
+                borderRadius: '50px',
+                marginBottom: '2rem',
+                border: '1px solid rgba(20, 184, 166, 0.3)'
+              }}>
+                <span style={{
+                  width: '8px',
+                  height: '8px',
+                  background: '#14b8a6',
+                  borderRadius: '50%'
+                }} className="pulse" />
+                <span style={{
+                  color: '#5eead4',
+                  fontSize: '0.875rem',
+                  fontWeight: 500,
+                  letterSpacing: '0.05em',
+                  textTransform: 'uppercase'
+                }}>
+                  Advanced Peptide Therapy
+                </span>
+              </div>
+
+              <h1 style={{
+                fontFamily: '"Playfair Display", serif',
+                fontSize: 'clamp(3rem, 6vw, 5rem)',
+                fontWeight: 600,
+                color: 'white',
+                lineHeight: 1.1,
+                marginBottom: '1.5rem',
+                letterSpacing: '-0.02em'
+              }}>
+                Unlock Your Body&apos;s
+                <br />
+                <span style={{ color: '#5eead4' }}>Full Potential</span>
+              </h1>
+
+              <p style={{
+                fontSize: '1.25rem',
+                color: 'rgba(255, 255, 255, 0.8)',
+                lineHeight: 1.7,
+                marginBottom: '2.5rem',
+                maxWidth: '600px'
+              }}>
+                Experience precision medicine with physician-guided peptide protocols.
+                From accelerated healing to optimized metabolism, we help you achieve
+                measurable results backed by science.
+              </p>
+
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="whatsapp-btn"
+                  style={{
+                    padding: '1rem 2rem',
+                    borderRadius: '50px',
+                    color: 'white',
+                    textDecoration: 'none',
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.75rem'
+                  }}
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                  Schedule Free Consultation
+                </a>
+                <a
+                  href="#therapies"
+                  style={{
+                    padding: '1rem 2rem',
+                    borderRadius: '50px',
+                    color: 'white',
+                    textDecoration: 'none',
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                    border: '2px solid rgba(255, 255, 255, 0.3)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseOver={e => {
+                    e.target.style.background = 'rgba(255,255,255,0.1)';
+                    e.target.style.borderColor = 'rgba(255,255,255,0.5)';
+                  }}
+                  onMouseOut={e => {
+                    e.target.style.background = 'transparent';
+                    e.target.style.borderColor = 'rgba(255,255,255,0.3)';
+                  }}
+                >
+                  Explore Therapies
+                </a>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+              gap: '2rem',
+              marginTop: '5rem',
+              paddingTop: '3rem',
+              borderTop: '1px solid rgba(255, 255, 255, 0.1)'
+            }}>
+              {[
+                { value: '10+', label: 'Peptide Therapies' },
+                { value: '98%', label: 'Patient Satisfaction' },
+                { value: '5000+', label: 'Patients Treated' },
+                { value: '24/7', label: 'Support Available' }
+              ].map((stat, i) => (
+                <div key={i} className="animate-in" style={{ animationDelay: `${i * 0.1}s` }}>
+                  <div style={{
+                    fontSize: '2.5rem',
+                    fontWeight: 700,
+                    color: '#5eead4',
+                    fontFamily: '"DM Sans", sans-serif'
+                  }}>{stat.value}</div>
+                  <div style={{
+                    color: 'rgba(255, 255, 255, 0.6)',
+                    fontSize: '0.9rem',
+                    marginTop: '0.25rem'
+                  }}>{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* About Section */}
+        <section style={{
+          padding: '6rem 2rem',
+          background: 'white'
+        }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '4rem',
+              alignItems: 'center'
+            }}>
+              <div>
+                <span style={{
+                  color: '#0d9488',
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase'
+                }}>Why BioSync</span>
+                <h2 style={{
+                  fontFamily: '"Playfair Display", serif',
+                  fontSize: 'clamp(2rem, 4vw, 3rem)',
+                  fontWeight: 600,
+                  color: '#1a2332',
+                  marginTop: '0.5rem',
+                  marginBottom: '1.5rem',
+                  lineHeight: 1.2
+                }}>
+                  Precision Medicine for
+                  <br />
+                  <span className="gradient-text">Modern Wellness</span>
+                </h2>
+                <p style={{
+                  color: '#64748b',
+                  fontSize: '1.1rem',
+                  lineHeight: 1.8,
+                  marginBottom: '1.5rem'
+                }}>
+                  Peptides are short chains of amino acids that act as signaling molecules,
+                  directing your cells to perform specific functions. Unlike traditional
+                  medications, they work with your body&apos;s natural systems—not against them.
+                </p>
+                <p style={{
+                  color: '#64748b',
+                  fontSize: '1.1rem',
+                  lineHeight: 1.8
+                }}>
+                  At BioSync, every protocol is physician-designed and tailored to your
+                  unique biology. We combine cutting-edge peptide science with comprehensive
+                  monitoring to deliver results you can measure.
+                </p>
+              </div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '1.5rem'
+              }}>
+                {[
+                  { icon: '🔬', title: 'Lab-Verified', desc: 'All peptides sourced from FDA-registered pharmacies' },
+                  { icon: '👨‍⚕️', title: 'Physician-Led', desc: 'Every protocol designed by licensed specialists' },
+                  { icon: '📊', title: 'Data-Driven', desc: 'Regular lab work to track your progress' },
+                  { icon: '💬', title: '24/7 Support', desc: 'Direct access to your care team anytime' }
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className="card-hover"
+                    style={{
+                      padding: '1.5rem',
+                      background: '#f8fafc',
+                      borderRadius: '16px',
+                      border: '1px solid #e2e8f0'
+                    }}
+                  >
+                    <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>{item.icon}</div>
+                    <h3 style={{
+                      fontSize: '1rem',
+                      fontWeight: 600,
+                      color: '#1a2332',
+                      marginBottom: '0.5rem'
+                    }}>{item.title}</h3>
+                    <p style={{
+                      fontSize: '0.875rem',
+                      color: '#64748b',
+                      lineHeight: 1.6
+                    }}>{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Peptide Therapies Section */}
+        <section id="therapies" style={{
+          padding: '6rem 2rem',
+          background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)'
+        }}>
+          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+              <span style={{
+                color: '#0d9488',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase'
+              }}>Our Therapies</span>
+              <h2 style={{
+                fontFamily: '"Playfair Display", serif',
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                fontWeight: 600,
+                color: '#1a2332',
+                marginTop: '0.5rem',
+                marginBottom: '1rem'
+              }}>
+                Explore Peptide <span className="gradient-text">Solutions</span>
+              </h2>
+              <p style={{
+                color: '#64748b',
+                fontSize: '1.1rem',
+                maxWidth: '600px',
+                margin: '0 auto'
+              }}>
+                From weight management to cellular regeneration, discover the peptide
+                therapy that aligns with your health goals.
+              </p>
+            </div>
+
+            {/* Category Filter */}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '0.75rem',
+              marginBottom: '3rem',
+              flexWrap: 'wrap'
+            }}>
+              {categories.map(cat => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`category-btn ${activeCategory === cat.id ? 'active' : ''}`}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '50px',
+                    border: activeCategory === cat.id ? 'none' : '1px solid #e2e8f0',
+                    background: activeCategory === cat.id ? '' : 'white',
+                    color: activeCategory === cat.id ? 'white' : '#64748b',
+                    fontSize: '0.9rem',
+                    fontWeight: 500,
+                    cursor: 'pointer'
+                  }}
+                >
+                  {cat.name}
+                </button>
+              ))}
+            </div>
+
+            {/* Peptide Grid */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+              gap: '1.5rem'
+            }}>
+              {filteredPeptides.map((peptide) => (
+                <div
+                  key={peptide.id}
+                  className="card-hover glass"
+                  style={{
+                    padding: '2rem',
+                    borderRadius: '20px',
+                    background: 'white',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
+                    border: '1px solid #e2e8f0'
+                  }}
+                >
+                  <div style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    marginBottom: '1rem'
+                  }}>
+                    <span style={{ fontSize: '2.5rem' }}>{peptide.icon}</span>
+                    <span style={{
+                      fontSize: '0.75rem',
+                      fontWeight: 600,
+                      color: '#0d9488',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                      background: 'rgba(13, 148, 136, 0.1)',
+                      padding: '0.35rem 0.75rem',
+                      borderRadius: '50px'
+                    }}>
+                      {categories.find(c => c.id === peptide.category)?.name}
+                    </span>
+                  </div>
+
+                  <h3 style={{
+                    fontSize: '1.5rem',
+                    fontWeight: 700,
+                    color: '#1a2332',
+                    marginBottom: '0.25rem'
+                  }}>{peptide.name}</h3>
+
+                  <p style={{
+                    fontSize: '0.9rem',
+                    color: '#0d9488',
+                    fontWeight: 500,
+                    marginBottom: '1rem'
+                  }}>{peptide.tagline}</p>
+
+                  <p style={{
+                    color: '#64748b',
+                    fontSize: '0.95rem',
+                    lineHeight: 1.7,
+                    marginBottom: '1.5rem'
+                  }}>{peptide.description}</p>
+
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '0.5rem'
+                  }}>
+                    {peptide.benefits.map((benefit, j) => (
+                      <span
+                        key={j}
+                        style={{
+                          fontSize: '0.8rem',
+                          color: '#475569',
+                          background: '#f1f5f9',
+                          padding: '0.4rem 0.75rem',
+                          borderRadius: '50px'
+                        }}
+                      >
+                        {benefit}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section id="benefits" style={{
+          padding: '6rem 2rem',
+          background: 'linear-gradient(135deg, #0c1929 0%, #1e3a5f 50%, #0f4c5c 100%)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2314b8a6' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            opacity: 0.5
+          }} />
+
+          <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+              <span style={{
+                color: '#5eead4',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase'
+              }}>Benefits</span>
+              <h2 style={{
+                fontFamily: '"Playfair Display", serif',
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                fontWeight: 600,
+                color: 'white',
+                marginTop: '0.5rem'
+              }}>
+                Why Choose <span style={{ color: '#5eead4' }}>Peptide Therapy?</span>
+              </h2>
+            </div>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '2rem'
+            }}>
+              {[
+                {
+                  icon: '🎯',
+                  title: 'Targeted Action',
+                  desc: 'Peptides work on specific cellular pathways, minimizing off-target effects unlike broad-spectrum medications.'
+                },
+                {
+                  icon: '🌿',
+                  title: 'Natural Approach',
+                  desc: "Work with your body's existing systems to stimulate natural healing and hormone production."
+                },
+                {
+                  icon: '📈',
+                  title: 'Measurable Results',
+                  desc: 'Track progress through regular lab work and biomarker monitoring for data-driven optimization.'
+                },
+                {
+                  icon: '🛡️',
+                  title: 'Excellent Safety',
+                  desc: 'When properly prescribed, peptides have minimal side effects compared to synthetic alternatives.'
+                },
+                {
+                  icon: '🔄',
+                  title: 'Synergistic Effects',
+                  desc: 'Combine multiple peptides strategically for enhanced, complementary benefits.'
+                },
+                {
+                  icon: '⚡',
+                  title: 'Fast Acting',
+                  desc: 'Many patients notice improvements within days to weeks, depending on the therapy.'
+                }
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  style={{
+                    padding: '2rem',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    borderRadius: '16px',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    backdropFilter: 'blur(10px)'
+                  }}
+                >
+                  <div style={{
+                    fontSize: '2.5rem',
+                    marginBottom: '1rem'
+                  }}>{item.icon}</div>
+                  <h3 style={{
+                    fontSize: '1.25rem',
+                    fontWeight: 600,
+                    color: 'white',
+                    marginBottom: '0.75rem'
+                  }}>{item.title}</h3>
+                  <p style={{
+                    color: 'rgba(255, 255, 255, 0.7)',
+                    lineHeight: 1.7
+                  }}>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Process Section */}
+        <section id="process" style={{
+          padding: '6rem 2rem',
+          background: 'white'
+        }}>
+          <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+              <span style={{
+                color: '#0d9488',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase'
+              }}>How It Works</span>
+              <h2 style={{
+                fontFamily: '"Playfair Display", serif',
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                fontWeight: 600,
+                color: '#1a2332',
+                marginTop: '0.5rem'
+              }}>
+                Your Journey to <span className="gradient-text">Optimization</span>
+              </h2>
+            </div>
+
+            <div style={{ position: 'relative' }}>
+              {/* Vertical Line */}
+              <div style={{
+                position: 'absolute',
+                left: '24px',
+                top: '40px',
+                bottom: '40px',
+                width: '2px',
+                background: 'linear-gradient(180deg, #14b8a6, #0f766e)',
+                borderRadius: '2px'
+              }} />
+
+              {[
+                {
+                  step: '01',
+                  title: 'Free Consultation',
+                  desc: 'Connect with us via WhatsApp to discuss your health goals, medical history, and determine if peptide therapy is right for you.',
+                  time: '15-30 minutes'
+                },
+                {
+                  step: '02',
+                  title: 'Comprehensive Lab Work',
+                  desc: 'We order targeted bloodwork including hormone panels, metabolic markers, and relevant biomarkers to establish your baseline.',
+                  time: '1-2 days'
+                },
+                {
+                  step: '03',
+                  title: 'Personalized Protocol',
+                  desc: 'Your physician designs a custom peptide protocol based on your labs, goals, and lifestyle. We explain everything before you start.',
+                  time: 'Same week'
+                },
+                {
+                  step: '04',
+                  title: 'Treatment & Monitoring',
+                  desc: 'Receive your peptides with clear instructions. We schedule follow-up labs at 8-12 weeks and adjust your protocol as needed.',
+                  time: 'Ongoing support'
+                }
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    gap: '2rem',
+                    marginBottom: i < 3 ? '3rem' : 0,
+                    position: 'relative'
+                  }}
+                >
+                  <div style={{
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #0f766e 0%, #14b8a6 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontWeight: 700,
+                    fontSize: '0.9rem',
+                    flexShrink: 0,
+                    zIndex: 1
+                  }}>
+                    {item.step}
+                  </div>
+                  <div style={{ flex: 1, paddingTop: '0.5rem' }}>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      marginBottom: '0.5rem',
+                      flexWrap: 'wrap',
+                      gap: '0.5rem'
+                    }}>
+                      <h3 style={{
+                        fontSize: '1.25rem',
+                        fontWeight: 600,
+                        color: '#1a2332'
+                      }}>{item.title}</h3>
+                      <span style={{
+                        fontSize: '0.8rem',
+                        color: '#0d9488',
+                        background: 'rgba(13, 148, 136, 0.1)',
+                        padding: '0.35rem 0.75rem',
+                        borderRadius: '50px'
+                      }}>{item.time}</span>
+                    </div>
+                    <p style={{
+                      color: '#64748b',
+                      lineHeight: 1.7
+                    }}>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section id="faq" style={{
+          padding: '6rem 2rem',
+          background: '#f8fafc'
+        }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+              <span style={{
+                color: '#0d9488',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase'
+              }}>FAQ</span>
+              <h2 style={{
+                fontFamily: '"Playfair Display", serif',
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                fontWeight: 600,
+                color: '#1a2332',
+                marginTop: '0.5rem'
+              }}>
+                Common <span className="gradient-text">Questions</span>
+              </h2>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {faqs.map((faq, i) => (
+                <div
+                  key={i}
+                  className="faq-item"
+                  style={{
+                    background: 'white',
+                    borderRadius: '12px',
+                    border: '1px solid #e2e8f0',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <button
+                    onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
+                    style={{
+                      width: '100%',
+                      padding: '1.5rem',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      border: 'none',
+                      background: 'none',
+                      cursor: 'pointer',
+                      textAlign: 'left'
+                    }}
+                  >
+                    <span style={{
+                      fontSize: '1.1rem',
+                      fontWeight: 600,
+                      color: '#1a2332'
+                    }}>{faq.q}</span>
+                    <span style={{
+                      color: '#0d9488',
+                      fontSize: '1.5rem',
+                      fontWeight: 300,
+                      transition: 'transform 0.3s ease',
+                      transform: expandedFaq === i ? 'rotate(45deg)' : 'none'
+                    }}>+</span>
+                  </button>
+                  <div style={{
+                    maxHeight: expandedFaq === i ? '500px' : '0',
+                    overflow: 'hidden',
+                    transition: 'max-height 0.3s ease'
+                  }}>
+                    <p style={{
+                      padding: '0 1.5rem 1.5rem',
+                      color: '#64748b',
+                      lineHeight: 1.7
+                    }}>{faq.a}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA Section */}
+        <section style={{
+          padding: '6rem 2rem',
+          background: 'linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%)',
+          textAlign: 'center'
+        }}>
+          <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+            <h2 style={{
+              fontFamily: '"Playfair Display", serif',
+              fontSize: 'clamp(2rem, 4vw, 3rem)',
+              fontWeight: 600,
+              color: 'white',
+              marginBottom: '1rem'
+            }}>
+              Ready to Transform Your Health?
+            </h2>
+            <p style={{
+              color: 'rgba(255, 255, 255, 0.9)',
+              fontSize: '1.15rem',
+              lineHeight: 1.7,
+              marginBottom: '2rem'
+            }}>
+              Take the first step toward optimized wellness. Our team is ready to
+              answer your questions and design a personalized peptide protocol for you.
+            </p>
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                padding: '1.25rem 2.5rem',
+                background: 'white',
+                color: '#0f766e',
+                borderRadius: '50px',
+                textDecoration: 'none',
+                fontWeight: 700,
+                fontSize: '1.1rem',
+                boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.3)',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseOver={e => {
+                e.target.style.transform = 'scale(1.05)';
+              }}
+              onMouseOut={e => {
+                e.target.style.transform = 'scale(1)';
+              }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#25d366">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Start Your Consultation
+            </a>
+            <p style={{
+              color: 'rgba(255, 255, 255, 0.7)',
+              fontSize: '0.9rem',
+              marginTop: '1.5rem'
+            }}>
+              Response within 2 hours - No commitment required
+            </p>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer style={{
+          padding: '3rem 2rem',
+          background: '#0c1929',
+          color: 'rgba(255, 255, 255, 0.6)',
+          textAlign: 'center'
+        }}>
+          <div style={{
+            fontFamily: '"Playfair Display", serif',
+            fontSize: '1.5rem',
+            fontWeight: 600,
+            color: 'white',
+            marginBottom: '1rem'
+          }}>
+            Bio<span style={{ color: '#14b8a6' }}>Sync</span>
+          </div>
+          <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>
+            Precision Peptide Therapy - Physician-Guided Protocols
+          </p>
+          <p style={{ fontSize: '0.8rem', opacity: 0.7 }}>
+            2025 BioSync Health. All rights reserved.
+          </p>
+          <p style={{ fontSize: '0.75rem', opacity: 0.5, marginTop: '1rem', maxWidth: '600px', margin: '1rem auto 0' }}>
+            Disclaimer: The information provided is for educational purposes only and is not intended as
+            medical advice. Consult with a qualified healthcare provider before starting any treatment.
+          </p>
+        </footer>
+
+        {/* Floating WhatsApp Button */}
+        <a
+          href={whatsappLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="floating-whatsapp whatsapp-btn"
+          style={{
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 10px 30px rgba(37, 211, 102, 0.4)'
+          }}
+        >
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </a>
+      </div>
+    </>
+  );
+};
+
+export default BioSync;
