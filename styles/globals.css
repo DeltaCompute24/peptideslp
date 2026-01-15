@@ -154,3 +154,38 @@ html {
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(13, 148, 136, 0.3), transparent);
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  /* Hide desktop floating CTA on mobile */
+  .desktop-only-cta {
+    display: none !important;
+  }
+
+  /* Show mobile sticky CTA bar */
+  .mobile-sticky-cta {
+    display: block !important;
+  }
+
+  /* Add padding to footer for mobile sticky CTA */
+  footer {
+    padding-bottom: 5rem !important;
+  }
+
+  /* Hide nav links on mobile */
+  nav > div > div:last-child > a.nav-link {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Show desktop floating CTA */
+  .desktop-only-cta {
+    display: flex !important;
+  }
+
+  /* Hide mobile sticky CTA bar */
+  .mobile-sticky-cta {
+    display: none !important;
+  }
+}
