@@ -16,14 +16,15 @@ const BioSync = () => {
 
   // Outcome-based goals that map to peptides
   const goals = [
-    { id: 'lose-weight', name: 'Lose Weight', icon: '⚖️', peptideIds: [1, 2, 7] },
-    { id: 'build-muscle', name: 'Build Muscle', icon: '💪', peptideIds: [5, 6] },
+    { id: 'lose-weight', name: 'Lose Weight', icon: '⚖️', peptideIds: [1, 2, 7, 13] },
+    { id: 'build-muscle', name: 'Build Muscle', icon: '💪', peptideIds: [5, 6, 12] },
     { id: 'heal-faster', name: 'Heal Faster', icon: '🩹', peptideIds: [3, 4] },
-    { id: 'sleep-better', name: 'Sleep Better', icon: '😴', peptideIds: [5, 6, 10] },
-    { id: 'more-energy', name: 'More Energy', icon: '⚡', peptideIds: [8, 5, 6] },
-    { id: 'look-younger', name: 'Look Younger', icon: '✨', peptideIds: [6, 10, 5] },
+    { id: 'sleep-better', name: 'Sleep Better', icon: '😴', peptideIds: [5, 6, 10, 12] },
+    { id: 'more-energy', name: 'More Energy', icon: '⚡', peptideIds: [8, 5, 6, 13] },
+    { id: 'look-younger', name: 'Look Younger', icon: '✨', peptideIds: [6, 10, 5, 11] },
     { id: 'boost-libido', name: 'Boost Libido', icon: '❤️', peptideIds: [9] },
     { id: 'gut-health', name: 'Gut Health', icon: '🌿', peptideIds: [3] },
+    { id: 'skin-hair', name: 'Skin & Hair', icon: '💇', peptideIds: [11] },
   ];
 
   // Testimonials data
@@ -164,6 +165,33 @@ const BioSync = () => {
       description: 'Activates telomerase to protect and lengthen telomeres—the cellular markers of biological age—promoting longevity at the DNA level.',
       benefits: ['Telomere protection', 'Cellular longevity', 'Sleep improvement', 'Immune support'],
       icon: '🧪'
+    },
+    {
+      id: 11,
+      name: 'GHK-Cu',
+      category: 'antiaging',
+      tagline: 'The Blue Repair Peptide',
+      description: 'Copper peptide that binds to copper ions to activate cellular regeneration, stimulating repair pathways that restore youthfulness and vitality from within.',
+      benefits: ['Collagen & elastin boost', 'Skin repair & healing', 'Hair growth stimulation', 'Reduces fine lines'],
+      icon: '💙'
+    },
+    {
+      id: 12,
+      name: 'Ipamorelin',
+      category: 'antiaging',
+      tagline: 'Selective Growth Hormone Release',
+      description: 'A selective growth hormone secretagogue that stimulates natural GH production without affecting cortisol or prolactin levels, ideal for anti-aging and muscle building.',
+      benefits: ['Lean muscle growth', 'Improved sleep quality', 'Enhanced fat burning', 'Faster recovery'],
+      icon: '💪'
+    },
+    {
+      id: 13,
+      name: 'MOTS-C',
+      category: 'weight',
+      tagline: 'Metabolic Optimizer',
+      description: 'A mitochondrial-derived peptide that regulates metabolic homeostasis, enhances insulin sensitivity, and promotes fat oxidation for targeted weight management.',
+      benefits: ['Accelerates metabolism', 'Targeted fat loss', 'Energy enhancement', 'Metabolic balance'],
+      icon: '🔋'
     }
   ];
 
