@@ -1,6 +1,138 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 
+// Elegant line-art SVG icons
+const icons = {
+  // Peptide icons
+  scale: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 6v28M8 14h24M8 14l4 12h-8l4-12M32 14l4 12h-8l4-12"/>
+    </svg>
+  ),
+  target: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="20" cy="20" r="14"/><circle cx="20" cy="20" r="8"/><circle cx="20" cy="20" r="2"/>
+    </svg>
+  ),
+  healing: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="8" y="14" width="24" height="12" rx="2"/><path d="M14 14v12M26 14v12M8 20h24"/>
+    </svg>
+  ),
+  cell: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="20" cy="20" r="12"/><circle cx="20" cy="20" r="4"/><path d="M20 8v4M20 28v4M8 20h4M28 20h4"/>
+    </svg>
+  ),
+  hormone: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10 30c4-8 6-16 10-16s6 8 10 16"/><circle cx="20" cy="12" r="4"/>
+    </svg>
+  ),
+  youth: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="20" cy="16" r="10"/><path d="M14 18a6 6 0 0012 0"/><circle cx="16" cy="14" r="1" fill="#0d9488"/><circle cx="24" cy="14" r="1" fill="#0d9488"/><path d="M12 26c2 6 6 8 8 8s6-2 8-8"/>
+    </svg>
+  ),
+  flame: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 6c-2 6-8 10-8 18a8 8 0 0016 0c0-8-6-12-8-18z"/><path d="M20 18c-1 3-3 5-3 8a3 3 0 006 0c0-3-2-5-3-8z"/>
+    </svg>
+  ),
+  energy: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="12" y="8" width="16" height="24" rx="2"/><path d="M16 8v-2h8v2M18 16h4M18 20h4M18 24h4"/><path d="M20 28v4"/>
+    </svg>
+  ),
+  heart: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 34s-12-8-12-16c0-4 3-8 8-8 3 0 4 2 4 2s1-2 4-2c5 0 8 4 8 8 0 8-12 16-12 16z"/>
+    </svg>
+  ),
+  hourglass: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 6h16M12 34h16M14 6c0 8 6 10 6 14s-6 6-6 14M26 6c0 8-6 10-6 14s6 6 6 14"/>
+    </svg>
+  ),
+  copper: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="20" cy="20" r="10"/><path d="M15 20h10M20 15v10"/><circle cx="20" cy="20" r="14"/>
+    </svg>
+  ),
+  muscle: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 24c2-4 4-6 6-6 3 0 4 4 6 4s3-4 6-4c2 0 4 2 6 6"/><path d="M14 18c0-4 2-8 6-8s6 4 6 8"/>
+    </svg>
+  ),
+  metabolism: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="20" cy="20" r="12"/><path d="M14 20c2-4 4-6 6-6s4 2 6 6-4 6-6 6-4-2-6-6"/><circle cx="20" cy="20" r="2" fill="#0d9488"/>
+    </svg>
+  ),
+  // Goal icons
+  dumbbell: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 20h24"/><rect x="6" y="14" width="4" height="12" rx="1"/><rect x="30" y="14" width="4" height="12" rx="1"/><rect x="10" y="16" width="4" height="8" rx="1"/><rect x="26" y="16" width="4" height="8" rx="1"/>
+    </svg>
+  ),
+  moon: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M28 22a10 10 0 11-10-10 8 8 0 0010 10z"/>
+    </svg>
+  ),
+  lightning: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 6L12 22h8l-2 12 10-16h-8l2-12z"/>
+    </svg>
+  ),
+  sparkle: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 6v6M20 28v6M6 20h6M28 20h6M10 10l4 4M26 26l4 4M10 30l4-4M26 14l4-4"/>
+    </svg>
+  ),
+  leaf: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 32c0-16 8-24 24-24-4 16-12 24-24 24z"/><path d="M8 32c8-8 16-12 24-24"/>
+    </svg>
+  ),
+  mirror: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="#0d9488" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <ellipse cx="20" cy="16" rx="10" ry="12"/><path d="M16 28v6h8v-6"/><path d="M14 34h12"/>
+    </svg>
+  ),
+  // Benefit icons (use currentColor to inherit from parent)
+  crosshair: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="20" cy="20" r="10"/><path d="M20 6v8M20 26v8M6 20h8M26 20h8"/>
+    </svg>
+  ),
+  leafBenefit: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 32c0-16 8-24 24-24-4 16-12 24-24 24z"/><path d="M8 32c8-8 16-12 24-24"/>
+    </svg>
+  ),
+  chart: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 32h28"/><path d="M10 28V18M16 28V14M22 28V20M28 28V10"/>
+    </svg>
+  ),
+  shield: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 6l12 4v10c0 8-6 14-12 16-6-2-12-8-12-16V10l12-4z"/><path d="M15 20l3 3 7-7"/>
+    </svg>
+  ),
+  sync: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M30 14a10 10 0 00-18-4M10 26a10 10 0 0018 4"/><path d="M30 14v-6h6M10 26v6h-6"/>
+    </svg>
+  ),
+  bolt: (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 6L12 22h8l-2 12 10-16h-8l2-12z"/>
+    </svg>
+  ),
+};
+
 const BioSync = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeGoal, setActiveGoal] = useState(null);
@@ -16,15 +148,15 @@ const BioSync = () => {
 
   // Outcome-based goals that map to peptides
   const goals = [
-    { id: 'lose-weight', name: 'Lose Weight', icon: '⚖️', peptideIds: [1, 2, 7, 13] },
-    { id: 'build-muscle', name: 'Build Muscle', icon: '💪', peptideIds: [5, 6, 12] },
-    { id: 'heal-faster', name: 'Heal Faster', icon: '🩹', peptideIds: [3, 4] },
-    { id: 'sleep-better', name: 'Sleep Better', icon: '😴', peptideIds: [5, 6, 10, 12] },
-    { id: 'more-energy', name: 'More Energy', icon: '⚡', peptideIds: [8, 5, 6, 13] },
-    { id: 'look-younger', name: 'Look Younger', icon: '✨', peptideIds: [6, 10, 5, 11] },
-    { id: 'boost-libido', name: 'Boost Libido', icon: '❤️', peptideIds: [9] },
-    { id: 'gut-health', name: 'Gut Health', icon: '🌿', peptideIds: [3] },
-    { id: 'skin-hair', name: 'Skin & Hair', icon: '💇', peptideIds: [11] },
+    { id: 'lose-weight', name: 'Lose Weight', icon: 'scale', peptideIds: [1, 2, 7, 13] },
+    { id: 'build-muscle', name: 'Build Muscle', icon: 'dumbbell', peptideIds: [5, 6, 12] },
+    { id: 'heal-faster', name: 'Heal Faster', icon: 'healing', peptideIds: [3, 4] },
+    { id: 'sleep-better', name: 'Sleep Better', icon: 'moon', peptideIds: [5, 6, 10, 12] },
+    { id: 'more-energy', name: 'More Energy', icon: 'lightning', peptideIds: [8, 5, 6, 13] },
+    { id: 'look-younger', name: 'Look Younger', icon: 'sparkle', peptideIds: [6, 10, 5, 11] },
+    { id: 'boost-libido', name: 'Boost Libido', icon: 'heart', peptideIds: [9] },
+    { id: 'gut-health', name: 'Gut Health', icon: 'leaf', peptideIds: [3] },
+    { id: 'skin-hair', name: 'Skin & Hair', icon: 'mirror', peptideIds: [11] },
   ];
 
   // Testimonials data
@@ -63,7 +195,7 @@ const BioSync = () => {
     }
   ];
 
-  const whatsappNumber = "5511999999999";
+  const whatsappNumber = "18476823968";
   const whatsappMessage = encodeURIComponent("Hi! I'm interested in learning more about peptide therapy at BioSync.");
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
@@ -83,7 +215,7 @@ const BioSync = () => {
       tagline: 'Revolutionary Weight Management',
       description: 'A GLP-1 receptor agonist that regulates appetite, slows gastric emptying, and promotes significant, sustainable weight loss. FDA-approved and clinically proven.',
       benefits: ['Appetite regulation', 'Blood sugar control', 'Cardiovascular benefits', 'Sustainable results'],
-      icon: '⚖️'
+      icon: 'scale'
     },
     {
       id: 2,
@@ -92,7 +224,7 @@ const BioSync = () => {
       tagline: 'Dual-Action Weight Loss',
       description: 'The most advanced weight loss peptide combining GLP-1 and GIP receptor activation for enhanced metabolic effects and superior fat reduction.',
       benefits: ['Dual hormone action', 'Enhanced metabolism', 'Improved insulin sensitivity', 'Greater efficacy'],
-      icon: '🎯'
+      icon: 'target'
     },
     {
       id: 3,
@@ -101,7 +233,7 @@ const BioSync = () => {
       tagline: 'The Wolverine Peptide',
       description: 'A naturally-derived gastric peptide renowned for accelerating tissue repair, reducing inflammation, and promoting healing of muscles, tendons, and gut lining.',
       benefits: ['Accelerated healing', 'Gut health restoration', 'Anti-inflammatory', 'Tendon & ligament repair'],
-      icon: '🔬'
+      icon: 'healing'
     },
     {
       id: 4,
@@ -110,7 +242,7 @@ const BioSync = () => {
       tagline: 'Cellular Regeneration',
       description: 'Thymosin Beta-4 promotes cell migration, blood vessel formation, and collagen deposition for comprehensive tissue repair and enhanced flexibility.',
       benefits: ['Cell regeneration', 'Improved flexibility', 'Wound healing', 'Reduced scarring'],
-      icon: '🧬'
+      icon: 'cell'
     },
     {
       id: 5,
@@ -119,7 +251,7 @@ const BioSync = () => {
       tagline: 'Growth Hormone Optimization',
       description: 'A synergistic combination that stimulates natural growth hormone release without appetite increase, supporting muscle growth, fat loss, and cellular repair.',
       benefits: ['Natural GH release', 'Improved sleep quality', 'Lean muscle gain', 'Fat metabolism'],
-      icon: '⚡'
+      icon: 'hormone'
     },
     {
       id: 6,
@@ -128,7 +260,7 @@ const BioSync = () => {
       tagline: 'Restore Your Youth',
       description: "Stimulates the pituitary gland to naturally produce growth hormone, working with your body's rhythm for safer, gradual anti-aging benefits.",
       benefits: ['Natural hormone production', 'Enhanced recovery', 'Mental clarity', 'Skin elasticity'],
-      icon: '✨'
+      icon: 'youth'
     },
     {
       id: 7,
@@ -137,7 +269,7 @@ const BioSync = () => {
       tagline: 'Targeted Fat Burning',
       description: 'A modified growth hormone fragment that specifically targets fat metabolism without affecting blood sugar or promoting tissue growth.',
       benefits: ['Targeted fat loss', 'No blood sugar impact', 'Abdominal fat reduction', 'Cartilage repair'],
-      icon: '🔥'
+      icon: 'flame'
     },
     {
       id: 8,
@@ -146,7 +278,7 @@ const BioSync = () => {
       tagline: 'Cellular Energy Revival',
       description: 'Essential coenzyme that powers cellular energy production, DNA repair, and metabolic function—declining with age but restorable through therapy.',
       benefits: ['Cellular rejuvenation', 'Mental clarity', 'Energy boost', 'DNA repair'],
-      icon: '💎'
+      icon: 'energy'
     },
     {
       id: 9,
@@ -155,7 +287,7 @@ const BioSync = () => {
       tagline: 'Sexual Wellness',
       description: 'Bremelanotide works directly on the nervous system to enhance libido and sexual function in both men and women, addressing desire at its source.',
       benefits: ['Enhanced libido', 'Works on desire', 'Fast-acting', 'Non-hormonal approach'],
-      icon: '❤️'
+      icon: 'heart'
     },
     {
       id: 10,
@@ -164,7 +296,7 @@ const BioSync = () => {
       tagline: 'Longevity Peptide',
       description: 'Activates telomerase to protect and lengthen telomeres—the cellular markers of biological age—promoting longevity at the DNA level.',
       benefits: ['Telomere protection', 'Cellular longevity', 'Sleep improvement', 'Immune support'],
-      icon: '🧪'
+      icon: 'hourglass'
     },
     {
       id: 11,
@@ -173,7 +305,7 @@ const BioSync = () => {
       tagline: 'The Blue Repair Peptide',
       description: 'Copper peptide that binds to copper ions to activate cellular regeneration, stimulating repair pathways that restore youthfulness and vitality from within.',
       benefits: ['Collagen & elastin boost', 'Skin repair & healing', 'Hair growth stimulation', 'Reduces fine lines'],
-      icon: '💙'
+      icon: 'copper'
     },
     {
       id: 12,
@@ -182,7 +314,7 @@ const BioSync = () => {
       tagline: 'Selective Growth Hormone Release',
       description: 'A selective growth hormone secretagogue that stimulates natural GH production without affecting cortisol or prolactin levels, ideal for anti-aging and muscle building.',
       benefits: ['Lean muscle growth', 'Improved sleep quality', 'Enhanced fat burning', 'Faster recovery'],
-      icon: '💪'
+      icon: 'muscle'
     },
     {
       id: 13,
@@ -191,7 +323,7 @@ const BioSync = () => {
       tagline: 'Metabolic Optimizer',
       description: 'A mitochondrial-derived peptide that regulates metabolic homeostasis, enhances insulin sensitivity, and promotes fat oxidation for targeted weight management.',
       benefits: ['Accelerates metabolism', 'Targeted fat loss', 'Energy enhancement', 'Metabolic balance'],
-      icon: '🔋'
+      icon: 'metabolism'
     }
   ];
 
@@ -287,6 +419,19 @@ const BioSync = () => {
                   {item}
                 </a>
               ))}
+              <a
+                href="/products"
+                className="nav-link"
+                style={{
+                  color: isScrolled ? '#1a2332' : 'rgba(255,255,255,0.9)',
+                  textDecoration: 'none',
+                  fontSize: '0.95rem',
+                  fontWeight: 500,
+                  letterSpacing: '0.02em'
+                }}
+              >
+                Catalog
+              </a>
               <a
                 href={whatsappLink}
                 target="_blank"
@@ -884,7 +1029,9 @@ const BioSync = () => {
                       gap: '0.5rem'
                     }}
                   >
-                    <span>{goal.icon}</span>
+                    <span style={{ width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {React.cloneElement(icons[goal.icon], { width: 20, height: 20, stroke: activeGoal === goal.id ? 'white' : '#0d9488' })}
+                    </span>
                     {goal.name}
                   </button>
                 ))}
@@ -915,7 +1062,7 @@ const BioSync = () => {
                     alignItems: 'flex-start',
                     marginBottom: '1rem'
                   }}>
-                    <span style={{ fontSize: '2.5rem' }}>{peptide.icon}</span>
+                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{icons[peptide.icon]}</span>
                     <span style={{
                       fontSize: '0.75rem',
                       fontWeight: 600,
@@ -1021,32 +1168,32 @@ const BioSync = () => {
             }}>
               {[
                 {
-                  icon: '🎯',
+                  icon: 'crosshair',
                   title: 'Targeted Action',
                   desc: 'Peptides work on specific cellular pathways, minimizing off-target effects unlike broad-spectrum medications.'
                 },
                 {
-                  icon: '🌿',
+                  icon: 'leafBenefit',
                   title: 'Natural Approach',
                   desc: "Work with your body's existing systems to stimulate natural healing and hormone production."
                 },
                 {
-                  icon: '📈',
+                  icon: 'chart',
                   title: 'Measurable Results',
                   desc: 'Track progress through regular lab work and biomarker monitoring for data-driven optimization.'
                 },
                 {
-                  icon: '🛡️',
+                  icon: 'shield',
                   title: 'Excellent Safety',
                   desc: 'When properly prescribed, peptides have minimal side effects compared to synthetic alternatives.'
                 },
                 {
-                  icon: '🔄',
+                  icon: 'sync',
                   title: 'Synergistic Effects',
                   desc: 'Combine multiple peptides strategically for enhanced, complementary benefits.'
                 },
                 {
-                  icon: '⚡',
+                  icon: 'bolt',
                   title: 'Fast Acting',
                   desc: 'Many patients notice improvements within days to weeks, depending on the therapy.'
                 }
@@ -1062,9 +1209,9 @@ const BioSync = () => {
                   }}
                 >
                   <div style={{
-                    fontSize: '2.5rem',
-                    marginBottom: '1rem'
-                  }}>{item.icon}</div>
+                    marginBottom: '1rem',
+                    color: '#5eead4'
+                  }}>{icons[item.icon]}</div>
                   <h3 style={{
                     fontSize: '1.25rem',
                     fontWeight: 600,
