@@ -197,10 +197,7 @@ const ProductCatalog = () => {
         <section style={{
           padding: '2rem',
           background: 'white',
-          borderBottom: '1px solid #e2e8f0',
-          position: 'sticky',
-          top: '73px',
-          zIndex: 50
+          borderBottom: '1px solid #e2e8f0'
         }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             {/* Search */}
