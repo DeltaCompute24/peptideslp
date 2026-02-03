@@ -248,7 +248,7 @@ export const peptideProducts = [
     description: 'A naturally-derived gastric peptide renowned for accelerating tissue repair, reducing inflammation, and promoting healing of muscles, tendons, and gut lining.',
     benefits: ['Accelerated healing', 'Gut health restoration', 'Anti-inflammatory', 'Tendon & ligament repair'],
     icon: 'healing',
-    image: '/images/peptides/recovery-blend-vial.png',
+    image: '/images/peptides/bpc-157-vial.png',
 
     specifications: {
       casNumber: '137525-51-0',
@@ -318,7 +318,7 @@ export const peptideProducts = [
     description: 'Synergistic combination of CJC-1295 and Ipamorelin for optimal growth hormone release, improved sleep quality, lean muscle gain, and enhanced recovery.',
     benefits: ['Natural GH release', 'Improved sleep quality', 'Lean muscle gain', 'Fat metabolism', 'Enhanced recovery'],
     icon: 'hormone',
-    image: '/images/peptides/growth-blend-vial.png',
+    image: '/images/peptides/cjc-ipamorelin-blend-vial.png',
 
     composition: [
       {
