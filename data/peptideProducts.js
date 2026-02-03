@@ -149,7 +149,7 @@ export const peptideProducts = [
     description: 'A mitochondrial-derived peptide that regulates metabolic homeostasis, enhances insulin sensitivity, and promotes fat oxidation for targeted weight management.',
     benefits: ['Accelerates metabolism', 'Targeted fat loss', 'Energy enhancement', 'Metabolic balance'],
     icon: 'metabolism',
-    image: '/images/peptides/blend-vial-3.png',
+    image: '/images/peptides/mots-c-vial.png',
 
     specifications: {
       casNumber: '1627580-64-6',
