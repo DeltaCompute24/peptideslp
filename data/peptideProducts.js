@@ -282,7 +282,7 @@ export const peptideProducts = [
     description: 'Thymosin Beta-4 promotes cell migration, blood vessel formation, and collagen deposition for comprehensive tissue repair and enhanced flexibility.',
     benefits: ['Cell regeneration', 'Improved flexibility', 'Wound healing', 'Reduced scarring'],
     icon: 'cell',
-    image: '/images/peptides/recovery-blend-vial.png',
+    image: '/images/peptides/tb-500-vial.png',
 
     specifications: {
       casNumber: '77591-33-4',
