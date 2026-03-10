@@ -3,6 +3,59 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { peptideProducts } from '../data/peptideProducts';
 
+// BIOSYNC PEPTIDES brand logo with molecular icon
+const BioSyncLogo = ({ color = '#1B5E20', size = 'default' }) => {
+  const iconSize = size === 'small' ? 36 : 44;
+  const titleSize = size === 'small' ? '1.3rem' : '1.6rem';
+  const subSize = size === 'small' ? '0.55rem' : '0.65rem';
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
+      <svg width={iconSize} height={iconSize} viewBox="0 0 100 100" style={{ marginRight: '-2px' }}>
+        <g stroke={color} strokeWidth="2.5" strokeLinecap="round">
+          <line x1="48" y1="50" x2="80" y2="24"/>
+          <line x1="48" y1="50" x2="84" y2="66"/>
+          <line x1="48" y1="50" x2="20" y2="18"/>
+          <line x1="48" y1="50" x2="14" y2="54"/>
+          <line x1="48" y1="50" x2="28" y2="82"/>
+        </g>
+        <g fill={color}>
+          <circle cx="48" cy="50" r="19"/>
+          <circle cx="80" cy="24" r="8"/>
+          <circle cx="84" cy="66" r="8"/>
+          <circle cx="20" cy="18" r="7"/>
+          <circle cx="14" cy="54" r="7"/>
+          <circle cx="28" cy="82" r="8"/>
+        </g>
+      </svg>
+      <div>
+        <div style={{
+          fontFamily: '"Playfair Display", Georgia, serif',
+          fontSize: titleSize,
+          fontWeight: 700,
+          color: color,
+          letterSpacing: '0.01em',
+          lineHeight: 1.1
+        }}>
+          BioSync
+        </div>
+        <div style={{
+          fontFamily: '"DM Sans", sans-serif',
+          fontSize: subSize,
+          fontWeight: 600,
+          color: color,
+          letterSpacing: '0.32em',
+          lineHeight: 1.2,
+          marginTop: '0px',
+          opacity: 0.8,
+          textAlign: 'right'
+        }}>
+          PEPTIDES
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const ProductCatalog = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeType, setActiveType] = useState('all');
@@ -43,12 +96,9 @@ const ProductCatalog = () => {
   return (
     <>
       <Head>
-        <title>Product Catalog - BioSync Peptide Therapy</title>
+        <title>Product Catalog - BIOSYNC PEPTIDES</title>
         <meta name="description" content="Browse our comprehensive catalog of pharmaceutical-grade peptide therapies. Research-grade peptides with 99% purity, complete specifications, and detailed documentation." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </Head>
 
       <style jsx global>{`
@@ -133,15 +183,8 @@ const ProductCatalog = () => {
             justifyContent: 'space-between',
             alignItems: 'center'
           }}>
-            <Link href="/" style={{
-              fontFamily: '"Playfair Display", serif',
-              fontSize: '1.75rem',
-              fontWeight: 600,
-              color: '#0f766e',
-              textDecoration: 'none',
-              letterSpacing: '-0.02em'
-            }}>
-              Bio<span style={{ color: '#14b8a6' }}>Sync</span>
+            <Link href="/" style={{ textDecoration: 'none' }}>
+              <BioSyncLogo color="#1B5E20" />
             </Link>
             <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
               <Link href="/" style={{
@@ -371,15 +414,16 @@ const ProductCatalog = () => {
                   {/* Logo */}
                   <div style={{
                     fontSize: '0.7rem',
-                    fontWeight: 600,
+                    fontWeight: 700,
                     marginBottom: '0.75rem',
                     opacity: 0.7,
-                    letterSpacing: '0.05em'
+                    letterSpacing: '0.1em'
                   }}>
-                    <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" style={{ display: 'inline', marginRight: '0.5rem', verticalAlign: 'middle' }}>
-                      <path d="M10 2L2 6v6c0 5 4 8 8 8s8-3 8-8V6l-8-4z"/>
+                    <svg width="14" height="14" viewBox="0 0 100 100" style={{ display: 'inline', marginRight: '0.4rem', verticalAlign: 'middle' }}>
+                      <g stroke="currentColor" strokeWidth="4" strokeLinecap="round"><line x1="38" y1="44" x2="25" y2="25"/><line x1="52" y1="44" x2="68" y2="28"/><line x1="55" y1="52" x2="74" y2="52"/><line x1="38" y1="60" x2="23" y2="74"/></g>
+                      <g fill="currentColor"><circle cx="45" cy="52" r="10"/><circle cx="22" cy="22" r="7"/><circle cx="71" cy="25" r="5"/><circle cx="78" cy="52" r="5"/><circle cx="19" cy="78" r="7"/></g>
                     </svg>
-                    BioSync Peptide
+                    BIOSYNC PEPTIDES
                   </div>
 
                   <h3 style={{

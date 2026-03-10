@@ -133,12 +133,74 @@ const icons = {
   ),
 };
 
+// BIOSYNC PEPTIDES brand logo with molecular icon
+const BioSyncLogo = ({ color = '#1B5E20', size = 'default' }) => {
+  const iconSize = size === 'small' ? 30 : 38;
+  const titleSize = size === 'small' ? '1.15rem' : '1.4rem';
+  const subSize = size === 'small' ? '0.5rem' : '0.6rem';
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <svg width={iconSize} height={iconSize} viewBox="0 0 100 100">
+        <g stroke={color} strokeWidth="3.5" strokeLinecap="round">
+          <line x1="38" y1="44" x2="25" y2="25"/>
+          <line x1="22" y1="15" x2="22" y2="5"/>
+          <line x1="28" y1="19" x2="40" y2="15"/>
+          <line x1="52" y1="44" x2="68" y2="28"/>
+          <line x1="55" y1="52" x2="74" y2="52"/>
+          <line x1="52" y1="60" x2="64" y2="75"/>
+          <line x1="38" y1="60" x2="23" y2="74"/>
+          <line x1="14" y1="83" x2="8" y2="92"/>
+        </g>
+        <g fill={color}>
+          <circle cx="45" cy="52" r="13"/>
+          <circle cx="22" cy="22" r="9"/>
+          <circle cx="22" cy="3" r="5"/>
+          <circle cx="43" cy="14" r="5"/>
+          <circle cx="71" cy="25" r="7"/>
+          <circle cx="78" cy="52" r="6.5"/>
+          <circle cx="68" cy="78" r="6.5"/>
+          <circle cx="19" cy="78" r="9"/>
+          <circle cx="6" cy="95" r="5"/>
+        </g>
+      </svg>
+      <div>
+        <div style={{
+          fontFamily: '"DM Sans", sans-serif',
+          fontSize: titleSize,
+          fontWeight: 800,
+          color: color,
+          letterSpacing: '0.05em',
+          lineHeight: 1.1
+        }}>
+          BIOSYNC
+        </div>
+        <div style={{
+          fontFamily: '"DM Sans", sans-serif',
+          fontSize: subSize,
+          fontWeight: 600,
+          color: color,
+          letterSpacing: '0.18em',
+          lineHeight: 1.2,
+          marginTop: '1px',
+          opacity: 0.85
+        }}>
+          PEPTIDES
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const BioSync = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeGoal, setActiveGoal] = useState(null);
   const [filterMode, setFilterMode] = useState('category');
   const [expandedFaq, setExpandedFaq] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showEbookModal, setShowEbookModal] = useState(false);
+  const [ebookPhone, setEbookPhone] = useState('');
+  const [ebookName, setEbookName] = useState('');
+  const [ebookSubmitted, setEbookSubmitted] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -360,7 +422,7 @@ const BioSync = () => {
   return (
     <>
       <Head>
-        <title>BioSync - Advanced Peptide Therapy</title>
+        <title>BIOSYNC PEPTIDES - Advanced Peptide Therapy</title>
         <meta name="description" content="Experience precision medicine with physician-guided peptide protocols. From accelerated healing to optimized metabolism, we help you achieve measurable results backed by science." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -393,15 +455,7 @@ const BioSync = () => {
             justifyContent: 'space-between',
             alignItems: 'center'
           }}>
-            <div style={{
-              fontFamily: '"Playfair Display", serif',
-              fontSize: '1.75rem',
-              fontWeight: 600,
-              color: isScrolled ? '#0f766e' : 'white',
-              letterSpacing: '-0.02em'
-            }}>
-              Bio<span style={{ color: '#14b8a6' }}>Sync</span>
-            </div>
+            <BioSyncLogo color={isScrolled ? '#1B5E20' : 'white'} />
             <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }}>
               {['Results', 'Therapies', 'Benefits', 'FAQ'].map(item => (
                 <a
@@ -431,6 +485,19 @@ const BioSync = () => {
                 }}
               >
                 Catalog
+              </a>
+              <a
+                href="/ebook"
+                className="nav-link"
+                style={{
+                  color: isScrolled ? '#1a2332' : 'rgba(255,255,255,0.9)',
+                  textDecoration: 'none',
+                  fontSize: '0.95rem',
+                  fontWeight: 500,
+                  letterSpacing: '0.02em'
+                }}
+              >
+                E-Book
               </a>
               <a
                 href={whatsappLink}
@@ -1445,37 +1512,39 @@ const BioSync = () => {
             gap: '3rem',
             alignItems: 'center'
           }}>
-            {/* Doctor Image */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center'
-            }}>
-              <div style={{
-                position: 'relative',
-                maxWidth: '350px'
-              }}>
+            {/* Medical Illustration */}
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div style={{ position: 'relative', maxWidth: '320px', width: '100%' }}>
+                <div style={{ position: 'absolute', inset: '-10px', background: 'rgba(255,255,255,0.06)', borderRadius: '24px', transform: 'rotate(-3deg)' }} />
                 <div style={{
-                  position: 'absolute',
-                  inset: '-10px',
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  borderRadius: '20px',
-                  transform: 'rotate(-3deg)'
-                }} />
-                <img
-                  src="/images/doctor.png"
-                  alt="BioSync Medical Specialist"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    borderRadius: '16px',
-                    position: 'relative',
-                    zIndex: 1,
-                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.3)'
-                  }}
-                  onError={(e) => {
-                    e.target.parentElement.style.display = 'none';
-                  }}
-                />
+                  position: 'relative', zIndex: 1, borderRadius: '20px', overflow: 'hidden',
+                  background: 'linear-gradient(160deg, rgba(13,148,136,0.2) 0%, rgba(20,184,166,0.08) 100%)',
+                  border: '1px solid rgba(255,255,255,0.1)', padding: '2.5rem 2rem', textAlign: 'center',
+                  boxShadow: '0 25px 50px -12px rgba(0,0,0,0.3)'
+                }}>
+                  <svg width="120" height="120" viewBox="0 0 120 120" fill="none" style={{ margin: '0 auto 1.5rem' }}>
+                    <circle cx="60" cy="60" r="55" stroke="rgba(20,184,166,0.3)" strokeWidth="1.5"/>
+                    <circle cx="60" cy="35" r="16" fill="rgba(20,184,166,0.15)" stroke="#14b8a6" strokeWidth="1.5"/>
+                    <path d="M35 90c0-14 11-25 25-25s25 11 25 25" fill="rgba(20,184,166,0.1)" stroke="#14b8a6" strokeWidth="1.5" strokeLinecap="round"/>
+                    <rect x="52" y="55" width="16" height="16" rx="2" fill="rgba(255,255,255,0.15)" stroke="#14b8a6" strokeWidth="1.5"/>
+                    <path d="M60 59v8M56 63h8" stroke="#14b8a6" strokeWidth="1.5" strokeLinecap="round"/>
+                    <circle cx="60" cy="60" r="42" stroke="rgba(20,184,166,0.12)" strokeWidth="0.8" strokeDasharray="4 6"/>
+                  </svg>
+                  <div style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '1.1rem', fontWeight: 700, color: 'white', marginBottom: '0.5rem' }}>
+                    Physician-Guided
+                  </div>
+                  <div style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.5 }}>
+                    Every protocol is designed and monitored by licensed medical professionals
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '1.25rem' }}>
+                    {[['Lab Work', '100%'], ['Monitoring', '24/7'], ['Support', '1-on-1']].map(([label, val]) => (
+                      <div key={label}>
+                        <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#14b8a6' }}>{val}</div>
+                        <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.5)', marginTop: '2px' }}>{label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1557,6 +1626,210 @@ const BioSync = () => {
           </div>
         </section>
 
+        {/* E-Book Download CTA */}
+        <section id="ebook" style={{
+          padding: '5rem 2rem',
+          background: 'linear-gradient(135deg, #0c1929 0%, #1e3a5f 50%, #0f4c5c 100%)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          <div style={{
+            position: 'absolute', top: '10%', right: '10%', width: '300px', height: '300px',
+            background: 'radial-gradient(circle, rgba(20,184,166,0.12) 0%, transparent 70%)',
+            borderRadius: '50%', filter: 'blur(50px)'
+          }} />
+          <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+            <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#14b8a6', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              E-BOOK GRATUITO
+            </div>
+            <h2 style={{
+              fontFamily: '"Playfair Display", serif', fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
+              fontWeight: 700, color: 'white', lineHeight: 1.2, marginBottom: '1rem'
+            }}>
+              Dicionario Completo de<br/>Protocolos de Peptideos
+            </h2>
+            <p style={{
+              fontFamily: '"DM Sans", sans-serif', fontSize: '1rem', color: 'rgba(255,255,255,0.7)',
+              lineHeight: 1.7, marginBottom: '0.75rem', maxWidth: '520px', margin: '0 auto 1.5rem'
+            }}>
+              27 protocolos baseados em evidencias, guias de dosagem, instrucoes de reconstituicao e dados cientificos. Em portugues.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
+              {['27 Peptideos', '8 Categorias', 'Guia de Dosagem', 'Glossario'].map(tag => (
+                <span key={tag} style={{
+                  padding: '6px 14px', borderRadius: '20px',
+                  background: 'rgba(20,184,166,0.15)', border: '1px solid rgba(20,184,166,0.3)',
+                  fontSize: '0.75rem', fontWeight: 600, color: '#5eead4'
+                }}>{tag}</span>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowEbookModal(true)}
+              style={{
+                padding: '1rem 2.5rem', borderRadius: '50px',
+                background: 'linear-gradient(135deg, #0d9488, #14b8a6)',
+                color: 'white', border: 'none', fontFamily: '"DM Sans", sans-serif',
+                fontSize: '1rem', fontWeight: 700, cursor: 'pointer',
+                boxShadow: '0 15px 40px -10px rgba(13,148,136,0.5)',
+                transition: 'all 0.3s', letterSpacing: '0.02em'
+              }}
+              onMouseOver={e => { e.target.style.transform = 'scale(1.05)'; e.target.style.boxShadow = '0 20px 50px -10px rgba(13,148,136,0.6)'; }}
+              onMouseOut={e => { e.target.style.transform = 'scale(1)'; e.target.style.boxShadow = '0 15px 40px -10px rgba(13,148,136,0.5)'; }}
+            >
+              Baixar E-Book Gratis
+            </button>
+            <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', marginTop: '1rem' }}>
+              Informe seu WhatsApp para receber o acesso
+            </p>
+          </div>
+        </section>
+
+        {/* E-Book WhatsApp Capture Modal */}
+        {showEbookModal && (
+          <div style={{
+            position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+            background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            zIndex: 9999, padding: '1rem'
+          }} onClick={e => { if (e.target === e.currentTarget) setShowEbookModal(false); }}>
+            <div style={{
+              background: 'white', borderRadius: '24px', padding: '2.5rem',
+              maxWidth: '440px', width: '100%', position: 'relative',
+              boxShadow: '0 25px 60px rgba(0,0,0,0.3)'
+            }}>
+              <button onClick={() => setShowEbookModal(false)} style={{
+                position: 'absolute', top: '1rem', right: '1rem', background: 'none',
+                border: 'none', cursor: 'pointer', color: '#94a3b8', fontSize: '1.5rem', lineHeight: 1
+              }}>x</button>
+
+              {!ebookSubmitted ? (
+                <>
+                  <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                    <div style={{
+                      width: '56px', height: '56px', borderRadius: '16px', margin: '0 auto 1rem',
+                      background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(13,148,136,0.2))',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center'
+                    }}>
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0d9488" strokeWidth="2" strokeLinecap="round">
+                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M12 18v-6"/><path d="M9 15l3 3 3-3"/>
+                      </svg>
+                    </div>
+                    <h3 style={{ fontFamily: '"Playfair Display", serif', fontSize: '1.4rem', fontWeight: 700, color: '#0c1929', marginBottom: '0.5rem' }}>
+                      E-Book de Peptideos
+                    </h3>
+                    <p style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.85rem', color: '#64748b', lineHeight: 1.5 }}>
+                      Informe seus dados para acessar o dicionario completo de protocolos
+                    </p>
+                  </div>
+
+                  <form onSubmit={e => {
+                    e.preventDefault();
+                    if (ebookPhone.length >= 8) {
+                      setEbookSubmitted(true);
+                    }
+                  }}>
+                    <div style={{ marginBottom: '0.75rem' }}>
+                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#475569', marginBottom: '0.35rem' }}>Nome</label>
+                      <input
+                        type="text" value={ebookName} onChange={e => setEbookName(e.target.value)}
+                        placeholder="Seu nome"
+                        style={{
+                          width: '100%', padding: '0.75rem 1rem', borderRadius: '12px',
+                          border: '1.5px solid #e2e8f0', fontFamily: '"DM Sans", sans-serif',
+                          fontSize: '0.9rem', outline: 'none', boxSizing: 'border-box'
+                        }}
+                        onFocus={e => e.target.style.borderColor = '#0d9488'}
+                        onBlur={e => e.target.style.borderColor = '#e2e8f0'}
+                      />
+                    </div>
+                    <div style={{ marginBottom: '1.25rem' }}>
+                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#475569', marginBottom: '0.35rem' }}>WhatsApp *</label>
+                      <input
+                        type="tel" value={ebookPhone} onChange={e => setEbookPhone(e.target.value)}
+                        placeholder="+55 (11) 99999-9999" required
+                        style={{
+                          width: '100%', padding: '0.75rem 1rem', borderRadius: '12px',
+                          border: '1.5px solid #e2e8f0', fontFamily: '"DM Sans", sans-serif',
+                          fontSize: '0.9rem', outline: 'none', boxSizing: 'border-box'
+                        }}
+                        onFocus={e => e.target.style.borderColor = '#0d9488'}
+                        onBlur={e => e.target.style.borderColor = '#e2e8f0'}
+                      />
+                    </div>
+                    <button type="submit" style={{
+                      width: '100%', padding: '0.85rem', borderRadius: '14px',
+                      background: 'linear-gradient(135deg, #25d366, #128c7e)',
+                      color: 'white', border: 'none', fontFamily: '"DM Sans", sans-serif',
+                      fontSize: '0.95rem', fontWeight: 700, cursor: 'pointer',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                      transition: 'all 0.3s'
+                    }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                      </svg>
+                      Receber E-Book via WhatsApp
+                    </button>
+                  </form>
+                  <p style={{ fontSize: '0.68rem', color: '#94a3b8', textAlign: 'center', marginTop: '0.75rem' }}>
+                    Seus dados sao protegidos. Nao compartilhamos com terceiros.
+                  </p>
+                </>
+              ) : (
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '64px', height: '64px', borderRadius: '50%', margin: '0 auto 1.25rem',
+                    background: 'linear-gradient(135deg, #dcfce7, #bbf7d0)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                  }}>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#166534" strokeWidth="2.5" strokeLinecap="round">
+                      <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/>
+                    </svg>
+                  </div>
+                  <h3 style={{ fontFamily: '"Playfair Display", serif', fontSize: '1.3rem', fontWeight: 700, color: '#0c1929', marginBottom: '0.5rem' }}>
+                    Obrigado{ebookName ? `, ${ebookName}` : ''}!
+                  </h3>
+                  <p style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.88rem', color: '#64748b', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+                    Seu e-book esta pronto. Baixe o PDF ou acesse online.
+                  </p>
+                  <button
+                    onClick={async () => {
+                      const { generateEbookPDF } = await import('../src/utils/generatePDF');
+                      const { protocolDictionaryPT, protocolCategoriesPT, reconstitutionGuidePT, peptideGlossaryPT } = await import('../data/protocolDictionaryPT');
+                      const doc = generateEbookPDF(protocolDictionaryPT, protocolCategoriesPT, reconstitutionGuidePT, peptideGlossaryPT, 'pt');
+                      doc.save('BioSync-Dicionario-Protocolos-Peptideos.pdf');
+                    }}
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                      padding: '0.85rem 2rem', borderRadius: '14px', border: 'none',
+                      background: 'linear-gradient(135deg, #0f766e, #0d9488)',
+                      color: 'white', fontFamily: '"DM Sans", sans-serif',
+                      fontSize: '0.95rem', fontWeight: 700, cursor: 'pointer',
+                      transition: 'all 0.3s',
+                      boxShadow: '0 10px 30px -10px rgba(13,148,136,0.5)'
+                    }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+                    Baixar PDF
+                  </button>
+                  <div style={{ marginTop: '0.75rem' }}>
+                    <a href="/ebook-pt" style={{
+                      fontSize: '0.78rem', color: '#0d9488', textDecoration: 'none', fontWeight: 600
+                    }}>
+                      Ler online
+                    </a>
+                    <span style={{ margin: '0 0.5rem', color: '#cbd5e1' }}>|</span>
+                    <a href="/ebook" style={{
+                      fontSize: '0.78rem', color: '#0d9488', textDecoration: 'none', fontWeight: 600
+                    }}>
+                      English version
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Footer */}
         <footer style={{
           padding: '3rem 2rem',
@@ -1564,20 +1837,14 @@ const BioSync = () => {
           color: 'rgba(255, 255, 255, 0.6)',
           textAlign: 'center'
         }}>
-          <div style={{
-            fontFamily: '"Playfair Display", serif',
-            fontSize: '1.5rem',
-            fontWeight: 600,
-            color: 'white',
-            marginBottom: '1rem'
-          }}>
-            Bio<span style={{ color: '#14b8a6' }}>Sync</span>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+            <BioSyncLogo color="white" size="small" />
           </div>
           <p style={{ fontSize: '0.9rem', marginBottom: '1rem' }}>
             Precision Peptide Therapy - Physician-Guided Protocols
           </p>
           <p style={{ fontSize: '0.8rem', opacity: 0.7 }}>
-            2026 BioSync Health. All rights reserved.
+            2026 BIOSYNC PEPTIDES. All rights reserved.
           </p>
           <p style={{ fontSize: '0.75rem', opacity: 0.5, marginTop: '1rem', maxWidth: '600px', margin: '1rem auto 0' }}>
             Disclaimer: The information provided is for educational purposes only and is not intended as

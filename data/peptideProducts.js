@@ -12,7 +12,7 @@ export const peptideProducts = [
     description: 'A GLP-1 receptor agonist that regulates appetite, slows gastric emptying, and promotes significant, sustainable weight loss. FDA-approved and clinically proven.',
     benefits: ['Appetite regulation', 'Blood sugar control', 'Cardiovascular benefits', 'Sustainable results'],
     icon: 'scale',
-    image: '/images/peptides/blend-vial-3.png',
+    image: '/images/peptides/semaglutide-vial.png',
 
     // Pharmaceutical specifications
     specifications: {
@@ -64,7 +64,7 @@ export const peptideProducts = [
     description: 'The most advanced weight loss peptide combining GLP-1 and GIP receptor activation for enhanced metabolic effects and superior fat reduction.',
     benefits: ['Dual hormone action', 'Enhanced metabolism', 'Improved insulin sensitivity', 'Greater efficacy'],
     icon: 'target',
-    image: '/images/peptides/blend-vial-3.png',
+    image: '/images/peptides/tirzepatide-vial.png',
 
     specifications: {
       casNumber: '2023788-19-2',
@@ -114,7 +114,7 @@ export const peptideProducts = [
     description: 'A modified growth hormone fragment that specifically targets fat metabolism without affecting blood sugar or promoting tissue growth.',
     benefits: ['Targeted fat loss', 'No blood sugar impact', 'Abdominal fat reduction', 'Cartilage repair'],
     icon: 'flame',
-    image: '/images/peptides/blend-vial-3.png',
+    image: '/images/peptides/aod-9604-vial.png',
 
     specifications: {
       casNumber: '221231-10-3',
@@ -375,7 +375,7 @@ export const peptideProducts = [
     description: "Stimulates the pituitary gland to naturally produce growth hormone, working with your body's rhythm for safer, gradual anti-aging benefits.",
     benefits: ['Natural hormone production', 'Enhanced recovery', 'Mental clarity', 'Skin elasticity'],
     icon: 'youth',
-    image: '/images/peptides/growth-blend-vial.png',
+    image: '/images/peptides/sermorelin-vial.png',
 
     specifications: {
       casNumber: '86168-78-7',
@@ -410,7 +410,7 @@ export const peptideProducts = [
     description: 'A selective growth hormone secretagogue that stimulates natural GH production without affecting cortisol or prolactin levels, ideal for anti-aging and muscle building.',
     benefits: ['Lean muscle growth', 'Improved sleep quality', 'Enhanced fat burning', 'Faster recovery'],
     icon: 'muscle',
-    image: '/images/peptides/growth-blend-vial.png',
+    image: '/images/peptides/ipamorelin-vial.png',
 
     specifications: {
       casNumber: '170851-70-4',
@@ -445,7 +445,7 @@ export const peptideProducts = [
     description: 'Activates telomerase to protect and lengthen telomeres—the cellular markers of biological age—promoting longevity at the DNA level.',
     benefits: ['Telomere protection', 'Cellular longevity', 'Sleep improvement', 'Immune support'],
     icon: 'hourglass',
-    image: '/images/peptides/blend-vial-3.png',
+    image: '/images/peptides/epithalon-vial.png',
 
     specifications: {
       casNumber: '307297-39-8',
@@ -480,7 +480,7 @@ export const peptideProducts = [
     description: 'Copper peptide that binds to copper ions to activate cellular regeneration, stimulating repair pathways that restore youthfulness and vitality from within.',
     benefits: ['Collagen & elastin boost', 'Skin repair & healing', 'Hair growth stimulation', 'Reduces fine lines'],
     icon: 'copper',
-    image: '/images/peptides/blend-vial-3.png',
+    image: '/images/peptides/ghk-cu-vial.png',
 
     specifications: {
       casNumber: '49557-75-7',
@@ -516,7 +516,7 @@ export const peptideProducts = [
     description: 'Essential coenzyme that powers cellular energy production, DNA repair, and metabolic function—declining with age but restorable through therapy.',
     benefits: ['Cellular rejuvenation', 'Mental clarity', 'Energy boost', 'DNA repair'],
     icon: 'energy',
-    image: '/images/peptides/blend-vial-3.png',
+    image: '/images/peptides/nad-plus-vial.png',
 
     specifications: {
       casNumber: '53-84-9',
@@ -552,7 +552,7 @@ export const peptideProducts = [
     description: 'Bremelanotide works directly on the nervous system to enhance libido and sexual function in both men and women, addressing desire at its source.',
     benefits: ['Enhanced libido', 'Works on desire', 'Fast-acting', 'Non-hormonal approach'],
     icon: 'heart',
-    image: '/images/peptides/blend-vial-3.png',
+    image: '/images/peptides/pt-141-vial.png',
 
     specifications: {
       casNumber: '189691-06-3',
