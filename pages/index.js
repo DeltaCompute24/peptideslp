@@ -861,7 +861,7 @@ const BioSync = () => {
               gap: '4rem',
               alignItems: 'center'
             }}>
-              {/* Left side - Product Image */}
+              {/* Left side - Product Vial Grid */}
               <div style={{
                 position: 'relative',
                 display: 'flex',
@@ -876,20 +876,36 @@ const BioSync = () => {
                   borderRadius: '50%',
                   filter: 'blur(40px)'
                 }} />
-                <img
-                  src="/images/biosync-vials.png"
-                  alt="BioSync Peptide Vials - Epithalon, BPC-157, TB-500"
-                  style={{
-                    maxWidth: '100%',
-                    height: 'auto',
-                    position: 'relative',
-                    zIndex: 1,
-                    borderRadius: '20px'
-                  }}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                  }}
-                />
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(2, 1fr)',
+                  gap: '0.75rem',
+                  position: 'relative',
+                  zIndex: 1,
+                  maxWidth: '420px'
+                }}>
+                  {[
+                    { src: '/images/peptides/bpc-157-vial.png', name: 'BPC-157' },
+                    { src: '/images/peptides/epithalon-vial.png', name: 'Epithalon' },
+                    { src: '/images/peptides/semaglutide-vial.png', name: 'Semaglutide' },
+                    { src: '/images/peptides/ghk-cu-vial.png', name: 'GHK-Cu' },
+                  ].map((v, i) => (
+                    <div key={i} style={{
+                      background: 'white',
+                      borderRadius: '16px',
+                      overflow: 'hidden',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                      border: '1px solid #e2e8f0',
+                      transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                    }}>
+                      <img
+                        src={v.src}
+                        alt={v.name}
+                        style={{ width: '100%', height: 'auto', display: 'block' }}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* Right side - Trust signals */}
