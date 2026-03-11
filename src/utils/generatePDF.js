@@ -582,7 +582,7 @@ export function generateEbookPDF(protocolDictionary, protocolCategories, reconst
 
     // Step text
     doc.setFontSize(8.5);
-    doc.setTextColor(isWarning ? [146, 64, 14] : DARK);
+    doc.setTextColor(...(isWarning ? [146, 64, 14] : DARK));
     doc.setFont('helvetica', 'normal');
     const lines = wrapText(doc, s.action, contentW - 24);
     doc.text(lines, 38, y + 1);
