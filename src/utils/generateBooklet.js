@@ -1,6 +1,6 @@
 // BioSync Peptides - Sample Case Booklet PDF Generator
 // Generates a professionally formatted print booklet for pharmacies/clinics
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 
 // Brand colors
 const TEAL = [13, 148, 136];
