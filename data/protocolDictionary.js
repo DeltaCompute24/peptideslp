@@ -924,6 +924,72 @@ export const protocolDictionary = [
     contraindications: ['Melanoma/skin cancer', 'Pregnancy'],
     sideEffects: ['Nausea', 'Facial flushing', 'Mole darkening'],
     evidenceLevel: 'Strong — FDA-approved for EPP (Scenesse)'
+  },
+
+  // ─────────────────────────────────────────────
+  // TOP SELLERS — NEW ADDITIONS
+  // ─────────────────────────────────────────────
+
+  {
+    id: 'retatrutide',
+    name: 'Retatrutide (LY-3437943)',
+    category: 'Weight Management & Metabolic',
+    class: 'Triple GLP-1/GIP/Glucagon Agonist',
+    casNumber: '2381089-83-2',
+    molecularFormula: 'C225H348N48O70',
+    molecularWeight: '4898.63 g/mol',
+    mechanism: 'First-in-class triple hormone receptor agonist activating GLP-1 (appetite suppression), GIP (insulin sensitization and fat metabolism), and glucagon receptors (direct fat oxidation and energy expenditure). The glucagon component differentiates it from dual agonists by promoting hepatic fat oxidation and thermogenesis.',
+    protocol: {
+      route: 'Subcutaneous injection',
+      titration: [
+        { weeks: 'Weeks 1-4', dose: '0.5 mg weekly' },
+        { weeks: 'Weeks 5-8', dose: '2 mg weekly' },
+        { weeks: 'Weeks 9-12', dose: '4 mg weekly' },
+        { weeks: 'Weeks 13-24', dose: '8 mg weekly' },
+        { weeks: 'Weeks 25-48', dose: '8-12 mg weekly (if tolerated)' }
+      ],
+      timing: 'Once weekly, same day each week',
+      notes: 'Slow titration is critical to minimize GI side effects. Take on an empty stomach or with a light meal.'
+    },
+    researchHighlights: [
+      'Phase 2 trial: 24.2% mean body weight reduction at 48 weeks (12 mg dose)',
+      'Triple agonist mechanism provides superior efficacy vs single/dual agonists',
+      'Significant reduction in liver fat (NAFLD/NASH potential)',
+      'HbA1c reduction of 2.02% in type 2 diabetes patients',
+      'Phase 3 TRIUMPH program underway (Eli Lilly)',
+      'Triglyceride reduction of up to 42% vs placebo'
+    ],
+    contraindications: ['Personal or family history of medullary thyroid carcinoma', 'MEN2 syndrome', 'Pregnancy or breastfeeding', 'Severe gastroparesis', 'History of pancreatitis'],
+    sideEffects: ['Nausea (dose-dependent, improves with titration)', 'Diarrhea', 'Decreased appetite', 'Vomiting', 'Injection site reactions'],
+    evidenceLevel: 'Strong — Phase 2 completed, Phase 3 ongoing (Eli Lilly TRIUMPH program)'
+  },
+
+  {
+    id: 'klow80',
+    name: 'KLOW80 — Regenerative Blend',
+    category: 'Recovery & Healing',
+    class: '4-Phase Regenerative Complex',
+    casNumber: 'Multi-peptide blend',
+    mechanism: 'Synergistic 4-phase regenerative system: Phase 1 (Inflammation Control) — KPV inhibits NF-kB pathway and GHK-Cu provides antioxidant support. Phase 2 (Tissue Repair) — TB-500 stimulates angiogenesis and cell migration while BPC-157 guides healing at injury sites. Phase 3 (Remodeling) — GHK-Cu improves collagen quality, elastin production, and extracellular matrix integrity. Phase 4 (Systemic Recovery) — combined action supports whole-body recovery and metabolic recomposition.',
+    protocol: {
+      route: 'Subcutaneous injection',
+      reconstitution: 'Reconstitute 80mg vial with 2-4 mL bacteriostatic water',
+      loadingPhase: '500 mcg daily for 2 weeks',
+      maintenancePhase: '300 mcg 3-5x per week',
+      cycleDuration: '8-12 weeks on, 4 weeks off',
+      timing: 'Morning on empty stomach or before bed',
+      notes: 'Can be injected near injury sites for targeted recovery. Rotate injection sites.'
+    },
+    researchHighlights: [
+      'BPC-157: accelerated tendon-to-bone healing in animal models (Sikiric et al.)',
+      'TB-500: promotes angiogenesis, upregulates actin for wound repair',
+      'KPV: potent anti-inflammatory via NF-kB inhibition, studied for IBD',
+      'GHK-Cu: increases collagen I & III synthesis by 70% in fibroblast studies',
+      'Synergistic blend addresses all 4 phases of tissue healing simultaneously'
+    ],
+    contraindications: ['Active cancer or malignancy', 'Pregnancy or breastfeeding', 'Active systemic infection', 'Known copper allergy (GHK-Cu component)'],
+    sideEffects: ['Mild injection site irritation', 'Temporary fatigue during loading phase', 'Rare: mild GI discomfort'],
+    evidenceLevel: 'Moderate — individual components well-studied, blend synergy based on mechanistic rationale'
   }
 ];
 
@@ -935,13 +1001,13 @@ export const protocolCategories = [
     id: 'weight',
     name: 'Weight Management & Metabolic',
     description: 'GLP-1 agonists, GIP/GLP-1 dual agonists, GH fragments, mitochondrial peptides, and reuptake inhibitors for appetite control and fat loss.',
-    peptideIds: ['semaglutide', 'tirzepatide', 'aod-9604', 'mots-c', 'tesofensine']
+    peptideIds: ['semaglutide', 'tirzepatide', 'retatrutide', 'aod-9604', 'mots-c', 'tesofensine']
   },
   {
     id: 'recovery',
     name: 'Recovery & Healing',
     description: 'Tissue repair peptides for tendons, ligaments, gut, muscles, and systemic inflammation. Includes single peptides and proven stacking protocols.',
-    peptideIds: ['bpc-157', 'tb-500', 'kpv', 'wolverine-protocol', 'bpc157-tb500-combo']
+    peptideIds: ['bpc-157', 'tb-500', 'kpv', 'klow80', 'wolverine-protocol', 'bpc157-tb500-combo']
   },
   {
     id: 'growth-hormone',

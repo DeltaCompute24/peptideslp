@@ -576,6 +576,163 @@ export const peptideProducts = [
     researchUseOnly: true,
     inStock: true,
     priceRemoved: 199
+  },
+
+  // ─── TOP SELLERS ───────────────────────────────
+
+  {
+    id: 14,
+    name: 'Retatrutide',
+    category: 'weight',
+    type: 'single',
+    tagline: 'Triple-Action Weight Loss',
+    description: 'The most advanced weight management peptide combining GLP-1, GIP, and glucagon receptor agonism. This triple-action mechanism targets appetite suppression, metabolic acceleration, and direct fat oxidation for unprecedented body composition results.',
+    benefits: ['Triple hormone action (GLP-1/GIP/Glucagon)', 'Superior fat loss vs dual agonists', 'Enhanced energy expenditure', 'Improved metabolic markers'],
+    icon: 'flame',
+    image: '/images/peptides/retatrutide-vial.png',
+
+    specifications: {
+      casNumber: '2381089-83-2',
+      molecularFormula: 'C225H348N48O70',
+      molecularWeight: '4898.63 g/mol',
+      purity: '99%',
+      concentration: '5mg/vial',
+      appearance: 'White lyophilized powder',
+      storage: '2-8°C, protect from light',
+      solubility: 'Water soluble'
+    },
+
+    dosage: {
+      starting: '0.5mg weekly',
+      maintenance: '4-12mg weekly',
+      titration: 'Increase by 0.5-2mg every 4 weeks over 24 weeks',
+      administration: 'Subcutaneous injection',
+      duration: '24-48 weeks'
+    },
+
+    researchData: [
+      'Phase 2 trial: up to 24.2% body weight reduction at 48 weeks',
+      'Triple agonist — first-in-class GLP-1/GIP/Glucagon receptor activation',
+      'Superior efficacy vs semaglutide and tirzepatide in head-to-head preclinical data',
+      'Significant improvements in triglycerides, HbA1c, and liver fat',
+      'Phase 3 TRIUMPH program ongoing with Eli Lilly'
+    ],
+
+    contraindications: [
+      'Personal or family history of medullary thyroid carcinoma',
+      'Multiple Endocrine Neoplasia syndrome type 2',
+      'Pregnancy or breastfeeding',
+      'Severe gastroparesis',
+      'History of pancreatitis'
+    ],
+
+    batchNumber: '171-042-PS',
+    researchUseOnly: true,
+    inStock: true,
+    featured: true
+  },
+
+  {
+    id: 102,
+    name: 'KLOW80',
+    category: 'recovery',
+    type: 'blend',
+    tagline: 'Regenerative Peptide Complex',
+    description: 'A 4-phase regenerative blend combining BPC-157, TB-500, KPV, and GHK-Cu for comprehensive tissue recovery, inflammation control, collagen remodeling, and systemic repair. 80mg total peptide content across four synergistic compounds.',
+    benefits: ['4-phase regenerative action', 'Inflammation control (KPV + GHK)', 'Tissue repair (BPC + TB-500)', 'Collagen remodeling (GHK-Cu)'],
+    icon: 'refresh',
+    image: '/images/peptides/klow80-vial.png',
+
+    composition: [
+      { name: 'BPC-157', amount: '10mg', casNumber: '137525-51-0', role: 'Guided tissue healing & gut repair' },
+      { name: 'TB-500', amount: '10mg', casNumber: '77591-33-4', role: 'Blood flow stimulation & tissue migration' },
+      { name: 'KPV', amount: '10mg', casNumber: '112965-21-6', role: 'Anti-inflammatory tripeptide' },
+      { name: 'GHK-Cu', amount: '50mg', casNumber: '89030-95-5', role: 'Collagen remodeling & antioxidant support' }
+    ],
+
+    specifications: {
+      totalAmount: '80mg blend',
+      purity: '99%',
+      appearance: 'White to off-white lyophilized powder',
+      storage: '2-8°C, protect from light',
+      solubility: 'Reconstitute with bacteriostatic water'
+    },
+
+    dosage: {
+      typical: '300-500 mcg daily',
+      loading: '500 mcg daily for first 2 weeks',
+      maintenance: '300 mcg 3-5x per week',
+      administration: 'Subcutaneous injection',
+      duration: '8-12 week cycles'
+    },
+
+    researchData: [
+      'Synergistic 4-phase approach: inflammation control, tissue repair, remodeling, systemic recovery',
+      'BPC-157: accelerated tendon-to-bone healing in rat models (Sikiric et al.)',
+      'TB-500: promotes angiogenesis and cell migration for wound healing',
+      'KPV: potent anti-inflammatory via NF-kB pathway inhibition',
+      'GHK-Cu: increases collagen synthesis, attracts immune cells, and acts as antioxidant'
+    ],
+
+    contraindications: [
+      'Active cancer or malignancy',
+      'Pregnancy or breastfeeding',
+      'Active systemic infection',
+      'Known allergy to copper compounds (GHK-Cu component)'
+    ],
+
+    batchNumber: '175-080-PS',
+    researchUseOnly: true,
+    inStock: true,
+    featured: true
+  },
+
+  {
+    id: 15,
+    name: 'Selank',
+    category: 'wellness',
+    type: 'single',
+    tagline: 'Anxiolytic Nootropic',
+    description: 'A synthetic analog of the immunomodulatory peptide tuftsin with anxiolytic, nootropic, and immune-enhancing properties. Modulates GABA, serotonin, and enkephalin systems without sedation or cognitive impairment.',
+    benefits: ['Anxiety reduction without sedation', 'Cognitive enhancement', 'Immune modulation', 'No dependency or tolerance'],
+    icon: 'brain',
+    image: '/images/peptides/selank-vial.png',
+
+    specifications: {
+      casNumber: '129954-34-3',
+      molecularFormula: 'C33H57N11O9',
+      molecularWeight: '751.87 g/mol',
+      purity: '99%',
+      concentration: '5mg/vial',
+      appearance: 'White lyophilized powder',
+      storage: '2-8°C, protect from light',
+      solubility: 'Water soluble'
+    },
+
+    dosage: {
+      intranasal: '75-200 mcg per nostril, 1-3x daily',
+      subcutaneous: '250-500 mcg daily',
+      administration: 'Intranasal or subcutaneous injection',
+      duration: 'Can be used long-term (no dependency reported)'
+    },
+
+    researchData: [
+      'Approved in Russia for generalized anxiety disorder',
+      'Anxiolytic without benzodiazepine-like side effects or sedation',
+      'Immunomodulatory — enhances IL-6 and influences T-helper cell balance',
+      'Modulates GABA-ergic system for calm without impairment',
+      'No dependency, tolerance, or withdrawal reported in studies'
+    ],
+
+    contraindications: [
+      'Pregnancy or breastfeeding',
+      'Concurrent use of strong GABA modulators (consult physician)'
+    ],
+
+    batchNumber: '168-093-PS',
+    researchUseOnly: true,
+    inStock: true,
+    featured: true
   }
 ];
 

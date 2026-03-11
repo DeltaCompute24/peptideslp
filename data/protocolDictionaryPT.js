@@ -924,6 +924,72 @@ export const protocolDictionaryPT = [
     contraindications: ['Melanoma/cancer de pele', 'Gravidez'],
     sideEffects: ['Nausea', 'Rubor facial', 'Escurecimento de pintas'],
     evidenceLevel: 'Forte — Aprovado pela FDA para PPE (Scenesse)'
+  },
+
+  // ─────────────────────────────────────────────
+  // MAIS VENDIDOS — NOVAS ADICOES
+  // ─────────────────────────────────────────────
+
+  {
+    id: 'retatrutide',
+    name: 'Retatrutide (LY-3437943)',
+    category: 'Controle de Peso e Metabolismo',
+    class: 'Agonista Triplo GLP-1/GIP/Glucagon',
+    casNumber: '2381089-83-2',
+    molecularFormula: 'C225H348N48O70',
+    molecularWeight: '4898.63 g/mol',
+    mechanism: 'Primeiro agonista triplo de receptores hormonais que ativa GLP-1 (supressao de apetite), GIP (sensibilizacao a insulina e metabolismo de gordura) e receptores de glucagon (oxidacao direta de gordura e gasto energetico). O componente glucagon o diferencia dos agonistas duplos ao promover oxidacao hepatica de gordura e termogenese.',
+    protocol: {
+      route: 'Injecao subcutanea',
+      titration: [
+        { weeks: 'Semanas 1-4', dose: '0,5 mg semanal' },
+        { weeks: 'Semanas 5-8', dose: '2 mg semanal' },
+        { weeks: 'Semanas 9-12', dose: '4 mg semanal' },
+        { weeks: 'Semanas 13-24', dose: '8 mg semanal' },
+        { weeks: 'Semanas 25-48', dose: '8-12 mg semanal (se tolerado)' }
+      ],
+      timing: 'Uma vez por semana, mesmo dia da semana',
+      notes: 'Titulacao lenta e essencial para minimizar efeitos GI. Tomar em jejum ou com refeicao leve.'
+    },
+    researchHighlights: [
+      'Ensaio Fase 2: reducao media de 24,2% do peso corporal em 48 semanas (dose de 12 mg)',
+      'Mecanismo de agonista triplo oferece eficacia superior vs agonistas simples/duplos',
+      'Reducao significativa de gordura hepatica (potencial DHGNA/NASH)',
+      'Reducao de HbA1c de 2,02% em pacientes com diabetes tipo 2',
+      'Programa TRIUMPH Fase 3 em andamento (Eli Lilly)',
+      'Reducao de triglicerideos de ate 42% vs placebo'
+    ],
+    contraindications: ['Historico pessoal ou familiar de carcinoma medular de tireoide', 'Sindrome NEM2', 'Gravidez ou amamentacao', 'Gastroparesia grave', 'Historico de pancreatite'],
+    sideEffects: ['Nausea (dose-dependente, melhora com titulacao)', 'Diarreia', 'Diminuicao do apetite', 'Vomito', 'Reacoes no local da injecao'],
+    evidenceLevel: 'Forte — Fase 2 concluida, Fase 3 em andamento (programa TRIUMPH da Eli Lilly)'
+  },
+
+  {
+    id: 'klow80',
+    name: 'KLOW80 — Blend Regenerativo',
+    category: 'Recuperacao e Cicatrizacao',
+    class: 'Complexo Regenerativo de 4 Fases',
+    casNumber: 'Blend multipeptidico',
+    mechanism: 'Sistema regenerativo sinergico de 4 fases: Fase 1 (Controle de Inflamacao) — KPV inibe via NF-kB e GHK-Cu fornece suporte antioxidante. Fase 2 (Reparo Tecidual) — TB-500 estimula angiogenese e migracao celular enquanto BPC-157 guia a cicatrizacao nos locais de lesao. Fase 3 (Remodelacao) — GHK-Cu melhora a qualidade do colageno, producao de elastina e integridade da matriz extracelular. Fase 4 (Recuperacao Sistemica) — acao combinada apoia recuperacao corporal total e recomposicao metabolica.',
+    protocol: {
+      route: 'Injecao subcutanea',
+      reconstitution: 'Reconstituir frasco de 80mg com 2-4 mL de agua bacteriostatica',
+      loadingPhase: '500 mcg diarios por 2 semanas',
+      maintenancePhase: '300 mcg 3-5x por semana',
+      cycleDuration: '8-12 semanas ligado, 4 semanas desligado',
+      timing: 'Manha em jejum ou antes de dormir',
+      notes: 'Pode ser injetado proximo ao local da lesao para recuperacao direcionada. Rotacionar locais de injecao.'
+    },
+    researchHighlights: [
+      'BPC-157: cicatrizacao acelerada tendao-osso em modelos animais (Sikiric et al.)',
+      'TB-500: promove angiogenese, regula actina para reparo de feridas',
+      'KPV: potente anti-inflamatorio via inibicao de NF-kB, estudado para DII',
+      'GHK-Cu: aumenta sintese de colageno I e III em 70% em estudos com fibroblastos',
+      'Blend sinergico aborda todas as 4 fases da cicatrizacao tecidual simultaneamente'
+    ],
+    contraindications: ['Cancer ativo ou malignidade', 'Gravidez ou amamentacao', 'Infeccao sistemica ativa', 'Alergia conhecida a compostos de cobre (componente GHK-Cu)'],
+    sideEffects: ['Leve irritacao no local da injecao', 'Fadiga temporaria na fase de carga', 'Raro: leve desconforto GI'],
+    evidenceLevel: 'Moderado — componentes individuais bem estudados, sinergia baseada em racional mecanistico'
   }
 ];
 
@@ -935,13 +1001,13 @@ export const protocolCategoriesPT = [
     id: 'weight',
     name: 'Controle de Peso e Metabolismo',
     description: 'Agonistas GLP-1, agonistas duplos GIP/GLP-1, fragmentos de GH, peptideos mitocondriais e inibidores de recaptacao para controle de apetite e perda de gordura.',
-    peptideIds: ['semaglutide', 'tirzepatide', 'aod-9604', 'mots-c', 'tesofensine']
+    peptideIds: ['semaglutide', 'tirzepatide', 'retatrutide', 'aod-9604', 'mots-c', 'tesofensine']
   },
   {
     id: 'recovery',
     name: 'Recuperacao e Cicatrizacao',
     description: 'Peptideos de reparo tecidual para tendoes, ligamentos, intestino, musculos e inflamacao sistemica. Inclui peptideos individuais e protocolos de combinacao comprovados.',
-    peptideIds: ['bpc-157', 'tb-500', 'kpv', 'wolverine-protocol', 'bpc157-tb500-combo']
+    peptideIds: ['bpc-157', 'tb-500', 'kpv', 'klow80', 'wolverine-protocol', 'bpc157-tb500-combo']
   },
   {
     id: 'growth-hormone',

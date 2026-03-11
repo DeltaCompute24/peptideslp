@@ -87,7 +87,7 @@ const ProductCatalog = () => {
     return matchesCategory && matchesType && matchesSearch;
   });
 
-  const whatsappNumber = "18476823968";
+  const whatsappNumber = "16088954666";
   const getWhatsappLink = (productName) => {
     const message = encodeURIComponent(`Hi! I'm interested in learning more about ${productName} from BioSync.`);
     return `https://wa.me/${whatsappNumber}?text=${message}`;

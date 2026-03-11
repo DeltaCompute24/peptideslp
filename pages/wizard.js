@@ -40,7 +40,12 @@ const BioSyncLogo = ({ color = '#1B5E20', size = 'default' }) => {
 // Parse markdown-like formatting to simple HTML
 function formatMessage(text) {
   return text
-    .replace(/```protocol\n([\s\S]*?)```/g, '<pre class="protocol-json">$1</pre>')
+    // Completely remove protocol JSON blocks — they're handled by extractProtocol
+    .replace(/```protocol\s*\n[\s\S]*?```/g, '')
+    // Also remove bare JSON blocks that look like protocol data
+    .replace(/```\s*\n?\s*\{[\s\S]*?"clientName"[\s\S]*?\}\s*\n?```/g, '')
+    // Remove any remaining raw JSON protocol (no fences)
+    .replace(/\{\s*\n?\s*"clientName"[\s\S]*?"disclaimer"[\s\S]*?\}/g, '')
     .replace(/```[\s\S]*?```/g, (m) => `<pre>${m.slice(3, -3)}</pre>`)
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
@@ -56,13 +61,22 @@ function formatMessage(text) {
 
 // Extract protocol JSON from message
 function extractProtocol(text) {
-  const match = text.match(/```protocol\s*\n([\s\S]*?)\n```/);
-  if (!match) return null;
-  try {
-    return JSON.parse(match[1]);
-  } catch {
-    return null;
+  // Try fenced protocol block first
+  const fenced = text.match(/```protocol\s*\n([\s\S]*?)\n```/);
+  if (fenced) {
+    try { return JSON.parse(fenced[1]); } catch {}
   }
+  // Try any fenced JSON block
+  const anyFenced = text.match(/```\s*\n?\s*(\{[\s\S]*?"clientName"[\s\S]*?\})\s*\n?```/);
+  if (anyFenced) {
+    try { return JSON.parse(anyFenced[1]); } catch {}
+  }
+  // Try bare JSON with clientName
+  const bare = text.match(/(\{\s*\n?\s*"clientName"[\s\S]*?"disclaimer"[\s\S]*?\})/);
+  if (bare) {
+    try { return JSON.parse(bare[1]); } catch {}
+  }
+  return null;
 }
 
 export default function Wizard() {
@@ -373,42 +387,19 @@ export default function Wizard() {
                 <div style={{ color: '#10b981', fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.5rem' }}>
                   Protocol Saved!
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-                  <a
-                    href={savedUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      color: '#fff',
-                      background: 'rgba(255,255,255,0.08)',
-                      padding: '0.5rem 1rem',
-                      borderRadius: '0.5rem',
-                      fontFamily: 'monospace',
-                      fontSize: '0.85rem',
-                      textDecoration: 'none',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      wordBreak: 'break-all',
-                    }}
-                  >
-                    biosyncpeptide.com{savedUrl}
-                  </a>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(window.location.origin + savedUrl);
-                    }}
-                    style={{
-                      background: 'rgba(255,255,255,0.06)',
-                      border: '1px solid rgba(255,255,255,0.12)',
-                      color: '#8896a7',
-                      padding: '0.5rem 0.75rem',
-                      borderRadius: '0.5rem',
-                      cursor: 'pointer',
-                      fontSize: '0.8rem',
-                    }}
-                  >
-                    Copy Link
-                  </button>
-                </div>
+                <a
+                  href={savedUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: '#10b981',
+                    fontSize: '0.95rem',
+                    textDecoration: 'underline',
+                    wordBreak: 'break-all',
+                  }}
+                >
+                  biosyncpeptide.com{savedUrl}
+                </a>
               </div>
             )}
 

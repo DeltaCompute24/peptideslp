@@ -266,7 +266,7 @@ const BioSync = () => {
     }
   ];
 
-  const whatsappNumber = "18476823968";
+  const whatsappNumber = "16088954666";
   const whatsappMessage = encodeURIComponent("Hi! I'm interested in learning more about peptide therapy at BioSync.");
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 

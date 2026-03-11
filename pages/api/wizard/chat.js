@@ -61,10 +61,10 @@ Based on their answer, present your confident recommendation: 1-3 specific BioSy
 Address any concerns. Present the complete protocol summary with dosing, timing, and duration. Ask: "Shall I finalize this protocol for you? I'll just need your first name."
 
 **Turn 4 (final):**
-Take their name, then output the protocol JSON.
+Take their name. Say ONLY "Your personalized protocol is ready!" and then output the protocol JSON. Do NOT repeat the protocol details in text — the system will display a save button automatically. Your visible text must be ONLY that one sentence.
 
 ## Final Protocol Format
-When finalizing, output EXACTLY this JSON block wrapped in \`\`\`protocol tags:
+When finalizing, output EXACTLY this JSON block wrapped in \`\`\`protocol tags. The JSON block MUST be the only content after your one-sentence confirmation:
 
 \`\`\`protocol
 {

@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 
 // Color palette
 const TEAL = [13, 148, 136];
@@ -56,6 +56,16 @@ function wrapText(doc, text, maxWidth) {
   return doc.splitTextToSize(text || '', maxWidth);
 }
 
+function safeSetOpacity(doc, opacity) {
+  try {
+    if (doc.GState) {
+      doc.setGState(new doc.GState({ opacity }));
+    }
+  } catch (e) {
+    // GState not available in this jsPDF version — skip transparency
+  }
+}
+
 export function generateEbookPDF(protocolDictionary, protocolCategories, reconstitutionGuide, peptideGlossary, lang = 'pt') {
   const doc = new jsPDF('p', 'mm', 'a4');
   const w = doc.internal.pageSize.getWidth(); // 210
@@ -73,10 +83,10 @@ export function generateEbookPDF(protocolDictionary, protocolCategories, reconst
 
   // Decorative teal circle
   doc.setFillColor(13, 148, 136);
-  doc.setGState(new doc.GState({ opacity: 0.08 }));
+  safeSetOpacity(doc, 0.08);
   doc.circle(160, 80, 80, 'F');
   doc.circle(50, 220, 60, 'F');
-  doc.setGState(new doc.GState({ opacity: 1 }));
+  safeSetOpacity(doc, 1);
 
   // Top accent line
   doc.setFillColor(...TEAL);
@@ -120,9 +130,9 @@ export function generateEbookPDF(protocolDictionary, protocolCategories, reconst
   stats.forEach((s, i) => {
     const bx = 20 + i * 58;
     doc.setFillColor(255, 255, 255);
-    doc.setGState(new doc.GState({ opacity: 0.06 }));
+    safeSetOpacity(doc, 0.06);
     doc.roundedRect(bx, 140, 50, 28, 3, 3, 'F');
-    doc.setGState(new doc.GState({ opacity: 1 }));
+    safeSetOpacity(doc, 1);
     doc.setFontSize(20);
     doc.setTextColor(...TEAL);
     doc.setFont('helvetica', 'bold');
@@ -327,7 +337,7 @@ export function generateEbookPDF(protocolDictionary, protocolCategories, reconst
             step.weeks || step.week || '',
             step.dose + (step.frequency ? `, ${step.frequency}` : '')
           ]);
-          doc.autoTable({
+          autoTable(doc, {
             startY: y,
             margin: { left: 24, right: 20 },
             head: [[isPT ? 'Periodo' : 'Period', isPT ? 'Dose' : 'Dose']],
@@ -346,7 +356,7 @@ export function generateEbookPDF(protocolDictionary, protocolCategories, reconst
             step.weeks || step.week || '',
             step.dose + (step.frequency ? `, ${step.frequency}` : '')
           ]);
-          doc.autoTable({
+          autoTable(doc, {
             startY: y,
             margin: { left: 24, right: 20 },
             head: [[isPT ? 'Periodo' : 'Period', isPT ? 'Dose' : 'Dose']],
@@ -362,7 +372,7 @@ export function generateEbookPDF(protocolDictionary, protocolCategories, reconst
         // Components table (for stacks)
         if (proto.components && Array.isArray(proto.components)) {
           const tableData = proto.components.map(c => [c.peptide, c.dose, c.timing]);
-          doc.autoTable({
+          autoTable(doc, {
             startY: y,
             margin: { left: 24, right: 20 },
             head: [['Peptideo', isPT ? 'Dose' : 'Dose', isPT ? 'Horario' : 'Timing']],
@@ -380,7 +390,7 @@ export function generateEbookPDF(protocolDictionary, protocolCategories, reconst
           const tableData = proto.expectedTimeline.map(t => [
             `${isPT ? 'Sem.' : 'Wk'} ${t.weeks}`, t.effect
           ]);
-          doc.autoTable({
+          autoTable(doc, {
             startY: y,
             margin: { left: 24, right: 20 },
             head: [[isPT ? 'Periodo' : 'Period', isPT ? 'Efeito Esperado' : 'Expected Effect']],
@@ -428,7 +438,7 @@ export function generateEbookPDF(protocolDictionary, protocolCategories, reconst
 
         if (simpleFields.length > 0) {
           y = checkPageBreak(doc, y, simpleFields.length * 5 + 5, pageNum, footerLabel);
-          doc.autoTable({
+          autoTable(doc, {
             startY: y,
             margin: { left: 24, right: 20 },
             body: simpleFields,
@@ -635,7 +645,7 @@ export function generateEbookPDF(protocolDictionary, protocolCategories, reconst
     `${(row.mL * 2500).toFixed(0)} mcg`
   ]);
 
-  doc.autoTable({
+  autoTable(doc, {
     startY: y,
     margin: { left: 24, right: 20 },
     head: [[isPT ? 'Unidades' : 'Units', 'mL', isPT ? 'Se 2.500 mcg/mL' : 'If 2,500 mcg/mL']],
@@ -714,7 +724,7 @@ export function generateEbookPDF(protocolDictionary, protocolCategories, reconst
 
   const glossaryData = peptideGlossary.map(item => [item.term, item.definition]);
 
-  doc.autoTable({
+  autoTable(doc, {
     startY: y,
     margin: { left: 24, right: 20 },
     head: [[isPT ? 'Termo' : 'Term', isPT ? 'Definicao' : 'Definition']],
@@ -745,9 +755,9 @@ export function generateEbookPDF(protocolDictionary, protocolCategories, reconst
   doc.rect(0, 0, w, h, 'F');
 
   doc.setFillColor(13, 148, 136);
-  doc.setGState(new doc.GState({ opacity: 0.06 }));
+  safeSetOpacity(doc, 0.06);
   doc.circle(105, 120, 90, 'F');
-  doc.setGState(new doc.GState({ opacity: 1 }));
+  safeSetOpacity(doc, 1);
 
   doc.setFontSize(11);
   doc.setTextColor(...TEAL);
