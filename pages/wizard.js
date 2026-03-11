@@ -166,7 +166,11 @@ export default function Wizard() {
       }
     } catch (err) {
       console.error('Chat error:', err);
-      setMessages([...newMessages, { role: 'assistant', content: `I apologize, but I encountered an error: ${err.message}. Please try again.` }]);
+      const errMsg = err.message || '';
+      const userFriendly = errMsg.includes('credit balance') || errMsg.includes('billing') || errMsg.includes('429') || errMsg.includes('rate')
+        ? 'Our protocol advisor is temporarily unavailable. Please try again in a few minutes, or contact us via WhatsApp for personalized recommendations.'
+        : 'Something went wrong. Please try again.';
+      setMessages([...newMessages, { role: 'assistant', content: userFriendly }]);
       setStreamingText('');
     }
 

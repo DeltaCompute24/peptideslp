@@ -142,12 +142,12 @@ export default async function handler(req, res) {
     res.end();
   } catch (err) {
     console.error('Claude API error:', err);
-    // If headers already sent, try to send error in stream
+    const safeMsg = 'Service temporarily unavailable';
     if (res.headersSent) {
-      res.write(`data: ${JSON.stringify({ error: err.message })}\n\n`);
+      res.write(`data: ${JSON.stringify({ error: safeMsg })}\n\n`);
       res.end();
     } else {
-      res.status(500).json({ error: err.message });
+      res.status(500).json({ error: safeMsg });
     }
   }
 }
