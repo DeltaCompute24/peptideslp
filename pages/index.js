@@ -135,54 +135,49 @@ const icons = {
 
 // BIOSYNC PEPTIDES brand logo with molecular icon
 const BioSyncLogo = ({ color = '#1B5E20', size = 'default' }) => {
-  const iconSize = size === 'small' ? 30 : 38;
-  const titleSize = size === 'small' ? '1.15rem' : '1.4rem';
-  const subSize = size === 'small' ? '0.5rem' : '0.6rem';
+  const iconSize = size === 'small' ? 36 : 44;
+  const titleSize = size === 'small' ? '1.3rem' : '1.6rem';
+  const subSize = size === 'small' ? '0.55rem' : '0.65rem';
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-      <svg width={iconSize} height={iconSize} viewBox="0 0 100 100">
-        <g stroke={color} strokeWidth="3.5" strokeLinecap="round">
-          <line x1="38" y1="44" x2="25" y2="25"/>
-          <line x1="22" y1="15" x2="22" y2="5"/>
-          <line x1="28" y1="19" x2="40" y2="15"/>
-          <line x1="52" y1="44" x2="68" y2="28"/>
-          <line x1="55" y1="52" x2="74" y2="52"/>
-          <line x1="52" y1="60" x2="64" y2="75"/>
-          <line x1="38" y1="60" x2="23" y2="74"/>
-          <line x1="14" y1="83" x2="8" y2="92"/>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
+      <svg width={iconSize} height={iconSize} viewBox="0 0 100 100" style={{ marginRight: '-2px' }}>
+        <g stroke={color} strokeWidth="2.5" strokeLinecap="round">
+          <line x1="48" y1="50" x2="80" y2="24"/>
+          <line x1="48" y1="50" x2="84" y2="66"/>
+          <line x1="48" y1="50" x2="20" y2="18"/>
+          <line x1="48" y1="50" x2="14" y2="54"/>
+          <line x1="48" y1="50" x2="28" y2="82"/>
         </g>
         <g fill={color}>
-          <circle cx="45" cy="52" r="13"/>
-          <circle cx="22" cy="22" r="9"/>
-          <circle cx="22" cy="3" r="5"/>
-          <circle cx="43" cy="14" r="5"/>
-          <circle cx="71" cy="25" r="7"/>
-          <circle cx="78" cy="52" r="6.5"/>
-          <circle cx="68" cy="78" r="6.5"/>
-          <circle cx="19" cy="78" r="9"/>
-          <circle cx="6" cy="95" r="5"/>
+          <circle cx="48" cy="50" r="19"/>
+          <circle cx="80" cy="24" r="8"/>
+          <circle cx="84" cy="66" r="8"/>
+          <circle cx="20" cy="18" r="7"/>
+          <circle cx="14" cy="54" r="7"/>
+          <circle cx="28" cy="82" r="8"/>
         </g>
       </svg>
       <div>
         <div style={{
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: '"Playfair Display", Georgia, serif',
           fontSize: titleSize,
-          fontWeight: 800,
+          fontWeight: 700,
           color: color,
-          letterSpacing: '0.05em',
+          letterSpacing: '0.01em',
           lineHeight: 1.1
         }}>
-          BIOSYNC
+          BioSync
         </div>
         <div style={{
           fontFamily: '"DM Sans", sans-serif',
           fontSize: subSize,
           fontWeight: 600,
           color: color,
-          letterSpacing: '0.18em',
+          letterSpacing: '0.32em',
           lineHeight: 1.2,
-          marginTop: '1px',
-          opacity: 0.85
+          marginTop: '0px',
+          opacity: 0.8,
+          textAlign: 'right'
         }}>
           PEPTIDES
         </div>
@@ -201,11 +196,25 @@ const BioSync = () => {
   const [ebookPhone, setEbookPhone] = useState('');
   const [ebookName, setEbookName] = useState('');
   const [ebookSubmitted, setEbookSubmitted] = useState(false);
+  const [showWizardModal, setShowWizardModal] = useState(false);
+  const [wizardPhone, setWizardPhone] = useState('');
+  const [wizardName, setWizardName] = useState('');
+  const [wizardSubmitted, setWizardSubmitted] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Protocol Wizard popup after 10 seconds
+  useEffect(() => {
+    const dismissed = sessionStorage.getItem('wizardModalDismissed');
+    if (dismissed) return;
+    const timer = setTimeout(() => {
+      setShowWizardModal(true);
+    }, 10000);
+    return () => clearTimeout(timer);
   }, []);
 
   // Outcome-based goals that map to peptides
@@ -500,6 +509,19 @@ const BioSync = () => {
                 E-Book
               </a>
               <a
+                href="/wizard"
+                className="nav-link"
+                style={{
+                  color: isScrolled ? '#0d9488' : 'rgba(255,255,255,0.9)',
+                  textDecoration: 'none',
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.02em'
+                }}
+              >
+                Protocol Wizard
+              </a>
+              <a
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -667,7 +689,7 @@ const BioSync = () => {
                   Schedule Free Consultation
                 </a>
                 <a
-                  href="#therapies"
+                  href="/products"
                   style={{
                     padding: '1rem 2rem',
                     borderRadius: '50px',
@@ -1112,7 +1134,8 @@ const BioSync = () => {
               gap: '1.5rem'
             }}>
               {filteredPeptides.map((peptide) => (
-                <div
+                <a
+                  href="/products"
                   key={peptide.id}
                   className="card-hover glass"
                   style={{
@@ -1120,7 +1143,10 @@ const BioSync = () => {
                     borderRadius: '20px',
                     background: 'white',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
-                    border: '1px solid #e2e8f0'
+                    border: '1px solid #e2e8f0',
+                    textDecoration: 'none',
+                    display: 'block',
+                    cursor: 'pointer'
                   }}
                 >
                   <div style={{
@@ -1185,7 +1211,7 @@ const BioSync = () => {
                       </span>
                     ))}
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
@@ -1824,6 +1850,139 @@ const BioSync = () => {
                       English version
                     </a>
                   </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Protocol Wizard Popup Modal */}
+        {showWizardModal && (
+          <div style={{
+            position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+            background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            zIndex: 9999, padding: '1rem'
+          }} onClick={e => { if (e.target === e.currentTarget) { setShowWizardModal(false); sessionStorage.setItem('wizardModalDismissed', '1'); } }}>
+            <div style={{
+              background: 'white', borderRadius: '24px', padding: '2.5rem',
+              maxWidth: '440px', width: '100%', position: 'relative',
+              boxShadow: '0 25px 60px rgba(0,0,0,0.3)'
+            }}>
+              <button onClick={() => { setShowWizardModal(false); sessionStorage.setItem('wizardModalDismissed', '1'); }} style={{
+                position: 'absolute', top: '1rem', right: '1rem', background: 'none',
+                border: 'none', cursor: 'pointer', color: '#94a3b8', fontSize: '1.5rem', lineHeight: 1
+              }}>x</button>
+
+              {!wizardSubmitted ? (
+                <>
+                  <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                    <div style={{
+                      width: '56px', height: '56px', borderRadius: '16px', margin: '0 auto 1rem',
+                      background: 'linear-gradient(135deg, rgba(13,148,136,0.1), rgba(13,148,136,0.2))',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center'
+                    }}>
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0d9488" strokeWidth="2" strokeLinecap="round">
+                        <path d="M9 3v7l-4 9h14l-4-9V3M9 3h6"/>
+                        <circle cx="12" cy="21" r="1" fill="#0d9488"/>
+                      </svg>
+                    </div>
+                    <h3 style={{ fontFamily: '"Playfair Display", serif', fontSize: '1.4rem', fontWeight: 700, color: '#0c1929', marginBottom: '0.5rem' }}>
+                      Free Personalized Protocol
+                    </h3>
+                    <p style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.85rem', color: '#64748b', lineHeight: 1.6 }}>
+                      Get a custom peptide protocol tailored to your goals — built by our AI advisor and ready to share with your provider.
+                    </p>
+                  </div>
+
+                  <form onSubmit={e => {
+                    e.preventDefault();
+                    if (wizardPhone.length >= 8) {
+                      setWizardSubmitted(true);
+                    }
+                  }}>
+                    <div style={{ marginBottom: '0.75rem' }}>
+                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#475569', marginBottom: '0.35rem' }}>Name</label>
+                      <input
+                        type="text" value={wizardName} onChange={e => setWizardName(e.target.value)}
+                        placeholder="Your name"
+                        style={{
+                          width: '100%', padding: '0.75rem 1rem', borderRadius: '12px',
+                          border: '1.5px solid #e2e8f0', fontFamily: '"DM Sans", sans-serif',
+                          fontSize: '0.9rem', outline: 'none', boxSizing: 'border-box'
+                        }}
+                        onFocus={e => e.target.style.borderColor = '#0d9488'}
+                        onBlur={e => e.target.style.borderColor = '#e2e8f0'}
+                      />
+                    </div>
+                    <div style={{ marginBottom: '1.25rem' }}>
+                      <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 600, color: '#475569', marginBottom: '0.35rem' }}>WhatsApp *</label>
+                      <input
+                        type="tel" value={wizardPhone} onChange={e => setWizardPhone(e.target.value)}
+                        placeholder="+1 (555) 000-0000" required
+                        style={{
+                          width: '100%', padding: '0.75rem 1rem', borderRadius: '12px',
+                          border: '1.5px solid #e2e8f0', fontFamily: '"DM Sans", sans-serif',
+                          fontSize: '0.9rem', outline: 'none', boxSizing: 'border-box'
+                        }}
+                        onFocus={e => e.target.style.borderColor = '#0d9488'}
+                        onBlur={e => e.target.style.borderColor = '#e2e8f0'}
+                      />
+                    </div>
+                    <button type="submit" style={{
+                      width: '100%', padding: '0.85rem', borderRadius: '14px', border: 'none',
+                      background: 'linear-gradient(135deg, #0f766e, #0d9488)',
+                      color: 'white', fontFamily: '"DM Sans", sans-serif',
+                      fontSize: '0.95rem', fontWeight: 700, cursor: 'pointer',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                      transition: 'all 0.3s',
+                      boxShadow: '0 10px 30px -10px rgba(13,148,136,0.5)'
+                    }}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                        <path d="M9 3v7l-4 9h14l-4-9V3M9 3h6"/>
+                      </svg>
+                      Build My Protocol
+                    </button>
+                  </form>
+                  <p style={{ fontSize: '0.68rem', color: '#94a3b8', textAlign: 'center', marginTop: '0.75rem' }}>
+                    Your information is protected. We never share your data.
+                  </p>
+                </>
+              ) : (
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '64px', height: '64px', borderRadius: '50%', margin: '0 auto 1.25rem',
+                    background: 'linear-gradient(135deg, #dcfce7, #bbf7d0)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center'
+                  }}>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#166534" strokeWidth="2.5" strokeLinecap="round">
+                      <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/>
+                    </svg>
+                  </div>
+                  <h3 style={{ fontFamily: '"Playfair Display", serif', fontSize: '1.3rem', fontWeight: 700, color: '#0c1929', marginBottom: '0.5rem' }}>
+                    Welcome{wizardName ? `, ${wizardName}` : ''}!
+                  </h3>
+                  <p style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.88rem', color: '#64748b', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+                    Your Protocol Wizard is ready. Tell our AI advisor your goals and we'll build a custom protocol just for you.
+                  </p>
+                  <a
+                    href="/wizard"
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                      padding: '0.85rem 2rem', borderRadius: '14px', border: 'none',
+                      background: 'linear-gradient(135deg, #0f766e, #0d9488)',
+                      color: 'white', fontFamily: '"DM Sans", sans-serif',
+                      fontSize: '0.95rem', fontWeight: 700, cursor: 'pointer',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s',
+                      boxShadow: '0 10px 30px -10px rgba(13,148,136,0.5)'
+                    }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                    Start Protocol Wizard
+                  </a>
                 </div>
               )}
             </div>

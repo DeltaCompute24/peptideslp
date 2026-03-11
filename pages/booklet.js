@@ -6,35 +6,40 @@ import { peptideProducts } from '../data/peptideProducts';
 // Selected products with unique photos
 const BOOKLET_PRODUCT_IDS = [3, 13, 100, 101]; // BPC-157, MOTS-C, Recovery Blend, Growth Optimization Blend
 
-const BioSyncLogo = ({ color = '#0d9488' }) => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
-    <svg width={38} height={38} viewBox="0 0 100 100" style={{ marginRight: '-2px' }}>
-      <g stroke={color} strokeWidth="2.5" strokeLinecap="round">
-        <line x1="48" y1="50" x2="80" y2="24"/>
-        <line x1="48" y1="50" x2="84" y2="66"/>
-        <line x1="48" y1="50" x2="20" y2="18"/>
-        <line x1="48" y1="50" x2="14" y2="54"/>
-        <line x1="48" y1="50" x2="28" y2="82"/>
-      </g>
-      <g fill={color}>
-        <circle cx="48" cy="50" r="19"/>
-        <circle cx="80" cy="24" r="8"/>
-        <circle cx="84" cy="66" r="8"/>
-        <circle cx="20" cy="18" r="7"/>
-        <circle cx="14" cy="54" r="7"/>
-        <circle cx="28" cy="82" r="8"/>
-      </g>
-    </svg>
-    <div>
-      <div style={{ fontFamily: '"Playfair Display", Georgia, serif', fontSize: '1.4rem', fontWeight: 700, color }}>
-        BioSync
-      </div>
-      <div style={{ fontFamily: '"DM Sans", sans-serif', fontSize: '0.5rem', fontWeight: 600, letterSpacing: '0.32em', color, marginTop: -1, textAlign: 'right', opacity: 0.8 }}>
-        PEPTIDES
+const BioSyncLogo = ({ color = '#1B5E20', size = 'default' }) => {
+  const iconSize = size === 'small' ? 36 : 44;
+  const titleSize = size === 'small' ? '1.3rem' : '1.6rem';
+  const subSize = size === 'small' ? '0.55rem' : '0.65rem';
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
+      <svg width={iconSize} height={iconSize} viewBox="0 0 100 100" style={{ marginRight: '-2px' }}>
+        <g stroke={color} strokeWidth="2.5" strokeLinecap="round">
+          <line x1="48" y1="50" x2="80" y2="24"/>
+          <line x1="48" y1="50" x2="84" y2="66"/>
+          <line x1="48" y1="50" x2="20" y2="18"/>
+          <line x1="48" y1="50" x2="14" y2="54"/>
+          <line x1="48" y1="50" x2="28" y2="82"/>
+        </g>
+        <g fill={color}>
+          <circle cx="48" cy="50" r="19"/>
+          <circle cx="80" cy="24" r="8"/>
+          <circle cx="84" cy="66" r="8"/>
+          <circle cx="20" cy="18" r="7"/>
+          <circle cx="14" cy="54" r="7"/>
+          <circle cx="28" cy="82" r="8"/>
+        </g>
+      </svg>
+      <div>
+        <div style={{ fontFamily: '"Playfair Display", Georgia, serif', fontSize: titleSize, fontWeight: 700, color, letterSpacing: '0.01em', lineHeight: 1.1 }}>
+          BioSync
+        </div>
+        <div style={{ fontFamily: '"DM Sans", sans-serif', fontSize: subSize, fontWeight: 600, color, letterSpacing: '0.32em', lineHeight: 1.2, marginTop: '0px', opacity: 0.8, textAlign: 'right' }}>
+          PEPTIDES
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default function Booklet() {
   const [generating, setGenerating] = useState(false);
@@ -74,11 +79,12 @@ export default function Booklet() {
         {/* Nav */}
         <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 2rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
           <Link href="/" style={{ textDecoration: 'none' }}>
-            <BioSyncLogo />
+            <BioSyncLogo color="white" />
           </Link>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             <Link href="/products" style={{ color: '#8896a7', textDecoration: 'none', fontSize: '0.9rem' }}>Catalog</Link>
             <Link href="/ebook" style={{ color: '#8896a7', textDecoration: 'none', fontSize: '0.9rem' }}>E-Book</Link>
+            <Link href="/wizard" style={{ color: '#0d9488', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 600 }}>Protocol Wizard</Link>
             <Link href="/booklet-pt" style={{ color: '#8896a7', textDecoration: 'none', fontSize: '0.9rem' }}>Portugues</Link>
           </div>
         </nav>

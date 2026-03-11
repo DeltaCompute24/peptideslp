@@ -204,6 +204,14 @@ const ProductCatalog = () => {
               }}>
                 Products
               </Link>
+              <Link href="/wizard" style={{
+                color: '#0d9488',
+                textDecoration: 'none',
+                fontSize: '0.95rem',
+                fontWeight: 600
+              }}>
+                Protocol Wizard
+              </Link>
             </div>
           </div>
         </nav>
