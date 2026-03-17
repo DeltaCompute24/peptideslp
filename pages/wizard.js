@@ -40,12 +40,12 @@ const BioSyncLogo = ({ color = '#1B5E20', size = 'default' }) => {
 // Parse markdown-like formatting to simple HTML
 function formatMessage(text) {
   return text
-    // Completely remove protocol JSON blocks — they're handled by extractProtocol
-    .replace(/```protocol\s*\n[\s\S]*?```/g, '')
+    // Completely remove protocol JSON blocks (closed or truncated/unclosed)
+    .replace(/```protocol\s*\n?[\s\S]*?(```|$)/g, '')
     // Also remove bare JSON blocks that look like protocol data
-    .replace(/```\s*\n?\s*\{[\s\S]*?"clientName"[\s\S]*?\}\s*\n?```/g, '')
-    // Remove any remaining raw JSON protocol (no fences)
-    .replace(/\{\s*\n?\s*"clientName"[\s\S]*?"disclaimer"[\s\S]*?\}/g, '')
+    .replace(/```\s*\n?\s*\{[\s\S]*?"clientName"[\s\S]*?(```|$)/g, '')
+    // Remove any remaining raw JSON protocol (no fences, closed or truncated)
+    .replace(/\{\s*\n?\s*"clientName"[\s\S]*/g, '')
     .replace(/```[\s\S]*?```/g, (m) => `<pre>${m.slice(3, -3)}</pre>`)
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.*?)\*/g, '<em>$1</em>')
@@ -61,10 +61,15 @@ function formatMessage(text) {
 
 // Extract protocol JSON from message
 function extractProtocol(text) {
-  // Try fenced protocol block first
+  // Try fenced protocol block first (closed)
   const fenced = text.match(/```protocol\s*\n([\s\S]*?)\n```/);
   if (fenced) {
     try { return JSON.parse(fenced[1]); } catch {}
+  }
+  // Try fenced protocol block (unclosed / truncated)
+  const unclosed = text.match(/```protocol\s*\n?([\s\S]*)/);
+  if (unclosed) {
+    try { return JSON.parse(unclosed[1].replace(/```\s*$/, '').trim()); } catch {}
   }
   // Try any fenced JSON block
   const anyFenced = text.match(/```\s*\n?\s*(\{[\s\S]*?"clientName"[\s\S]*?\})\s*\n?```/);
@@ -72,9 +77,10 @@ function extractProtocol(text) {
     try { return JSON.parse(anyFenced[1]); } catch {}
   }
   // Try bare JSON with clientName
-  const bare = text.match(/(\{\s*\n?\s*"clientName"[\s\S]*?"disclaimer"[\s\S]*?\})/);
+  const bare = text.match(/(\{\s*"clientName"[\s\S]*)/);
   if (bare) {
-    try { return JSON.parse(bare[1]); } catch {}
+    let json = bare[1].replace(/```\s*$/, '').trim();
+    try { return JSON.parse(json); } catch {}
   }
   return null;
 }

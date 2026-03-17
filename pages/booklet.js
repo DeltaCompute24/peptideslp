@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { peptideProducts } from '../data/peptideProducts';
 
 // Selected products with unique photos
-const BOOKLET_PRODUCT_IDS = [3, 13, 100, 101]; // BPC-157, MOTS-C, Recovery Blend, Growth Optimization Blend
+const BOOKLET_PRODUCT_IDS = [11, 13, 100, 101]; // GHK-Cu, MOTS-C, Recovery Blend, Growth Optimization Blend
 
 const BioSyncLogo = ({ color = '#1B5E20', size = 'default' }) => {
   const iconSize = size === 'small' ? 36 : 44;

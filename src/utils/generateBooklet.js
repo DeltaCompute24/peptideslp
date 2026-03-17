@@ -110,15 +110,15 @@ const strings = {
 
 // Product translations for PT
 const productTranslationsPT = {
-  3: { // BPC-157
-    tagline: 'O Peptideo Wolverine',
-    description: 'Um peptideo gastrico de origem natural reconhecido por acelerar o reparo tecidual, reduzir a inflamacao e promover a cicatrizacao de musculos, tendoes e revestimento intestinal.',
-    benefits: ['Cicatrizacao acelerada', 'Restauracao intestinal', 'Anti-inflamatorio', 'Reparo de tendoes'],
+  11: { // GHK-Cu
+    tagline: 'Peptideo de Cobre Regenerativo',
+    description: 'Peptideo de cobre que se liga a ions de cobre para ativar a regeneracao celular, estimulando vias de reparo que restauram a jovialidade e vitalidade de dentro para fora.',
+    benefits: ['Colageno e elastina', 'Reparo da pele', 'Crescimento capilar', 'Reducao de rugas'],
     researchData: [
-      'Peptideo gastrico que promove cicatrizacao sistemica',
-      'Demonstra reparo acelerado de tendoes e ligamentos em estudos',
-      'Propriedades neuroprotetoras e de protecao intestinal',
-      'Perfil de seguranca favoravel em pesquisas pre-clinicas'
+      'Peptideo de cobre que ativa regeneracao celular e sintese de colageno',
+      'Estimula crescimento capilar e reparo da pele em estudos clinicos',
+      'Propriedades antioxidantes e anti-inflamatorias comprovadas',
+      'Promove remodelacao tecidual e cicatrizacao de feridas'
     ],
     contraindications: null
   },
@@ -242,36 +242,70 @@ function buildCoverPage(doc, t) {
     doc.circle(x, y, 2, 'F');
   });
 
-  // Logo area - molecular icon
-  const cx = PW / 2;
-  doc.setDrawColor(...TEAL);
-  doc.setLineWidth(1.2);
-  const nodes = [[cx, 65], [cx - 15, 78], [cx + 15, 78], [cx - 8, 89], [cx + 8, 89]];
-  doc.line(nodes[0][0], nodes[0][1], nodes[1][0], nodes[1][1]);
-  doc.line(nodes[0][0], nodes[0][1], nodes[2][0], nodes[2][1]);
-  doc.line(nodes[1][0], nodes[1][1], nodes[3][0], nodes[3][1]);
-  doc.line(nodes[2][0], nodes[2][1], nodes[4][0], nodes[4][1]);
-  doc.line(nodes[3][0], nodes[3][1], nodes[4][0], nodes[4][1]);
-  nodes.forEach(([x, y], i) => {
-    doc.setFillColor(...(i === 0 ? TEAL : [20, 60, 80]));
-    doc.circle(x, y, i === 0 ? 4.5 : 3, 'F');
+  // Horizontal logo matching website header: [icon] BioSync / PEPTIDES
+  // Strategy: measure text first, then center the whole unit, place icon to the left
+  const logoY = 95;
+  const s = 0.15; // icon scale
+  const iconW = 14; // allocated width for icon (mm)
+
+  doc.setFont('times', 'bold');
+  doc.setFontSize(22);
+  const bioSyncW = doc.getTextWidth('BioSync');
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(6.5);
+  const peptidesW = doc.getTextWidth('PEPTIDES');
+
+  // Total width = icon + text block, centered on page
+  const totalW = iconW + bioSyncW;
+  const originX = (PW - totalW) / 2;
+
+  // Draw molecular icon at left of unit
+  const icx = originX + iconW / 2;
+  const icy = logoY;
+  const nodes = [
+    [0, 0, 3.0],      // center node
+    [5.1, -4.2, 1.3], // top-right
+    [5.8, 2.6, 1.3],  // right
+    [-4.5, -5.1, 1.1],// top-left
+    [-5.4, 0.6, 1.1],  // left
+    [-3.2, 5.1, 1.3],  // bottom-left
+  ];
+  // Lines from center to outer
+  doc.setDrawColor(...WHITE);
+  doc.setLineWidth(0.4);
+  for (let i = 1; i < nodes.length; i++) {
+    doc.line(icx + nodes[0][0], icy + nodes[0][1], icx + nodes[i][0], icy + nodes[i][1]);
+  }
+  // Node circles
+  nodes.forEach(([dx, dy, r]) => {
+    doc.setFillColor(...WHITE);
+    doc.circle(icx + dx, icy + dy, r, 'F');
   });
 
-  // Brand name
-  centerText(doc, 'BIOSYNC', 112, 34, WHITE);
-  centerText(doc, 'PEPTIDES', 124, 22, TEAL);
+  // "BioSync" text — baseline aligned with icon center
+  const textX = originX + iconW;
+  doc.setFont('times', 'bold');
+  doc.setFontSize(22);
+  doc.setTextColor(...WHITE);
+  doc.text('BioSync', textX, logoY + 3);
+
+  // "PEPTIDES" — right-aligned under BioSync, matching website opacity/spacing
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(6.5);
+  doc.setTextColor(200, 200, 200);
+  doc.text('PEPTIDES', textX + bioSyncW - 0.5, logoY + 9, { align: 'right' });
 
   // Tagline
-  centerText(doc, t.tagline, 138, 9, MID_GRAY, 'helvetica', 'normal');
+  centerText(doc, t.tagline, 115, 9, MID_GRAY, 'helvetica', 'normal');
 
   // Divider line
   doc.setDrawColor(...TEAL);
   doc.setLineWidth(0.8);
-  doc.line(35, 146, 113, 146);
+  doc.line(35, 123, 113, 123);
 
   // Subtitle
-  centerText(doc, t.catalog, 158, 11, WHITE, 'helvetica', 'normal');
-  centerText(doc, t.guide, 167, 8, MID_GRAY, 'helvetica', 'normal');
+  centerText(doc, t.catalog, 137, 11, WHITE, 'helvetica', 'normal');
+  centerText(doc, t.guide, 146, 8, MID_GRAY, 'helvetica', 'normal');
 
   // Bottom info bar
   doc.setFillColor(20, 40, 60);
@@ -387,29 +421,55 @@ function buildProductFront(doc, product, productImage, pageNum, t, ptData) {
   doc.setTextColor(...TEAL);
   doc.text(catLabel, MARGIN, 13);
 
-  // BioSync small logo text
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(6.5);
+  // BioSync small logo - molecular icon + serif brand text matching landing page
+  const miniScale = 0.09;
+  const miniCX = PW - MARGIN - 38;
+  const miniCY = 11;
+  const miniNodes = [
+    { dx: 0, dy: 0, r: 19 },
+    { dx: 32, dy: -26, r: 8 },
+    { dx: 36, dy: 16, r: 8 },
+    { dx: -28, dy: -32, r: 7 },
+    { dx: -34, dy: 4, r: 7 },
+    { dx: -20, dy: 32, r: 8 },
+  ];
+  doc.setDrawColor(...MID_GRAY);
+  doc.setLineWidth(0.2);
+  for (let i = 1; i < miniNodes.length; i++) {
+    doc.line(
+      miniCX + miniNodes[0].dx * miniScale, miniCY + miniNodes[0].dy * miniScale,
+      miniCX + miniNodes[i].dx * miniScale, miniCY + miniNodes[i].dy * miniScale
+    );
+  }
+  miniNodes.forEach((node) => {
+    doc.setFillColor(...MID_GRAY);
+    doc.circle(miniCX + node.dx * miniScale, miniCY + node.dy * miniScale, node.r * miniScale, 'F');
+  });
+  doc.setFont('times', 'bold');
+  doc.setFontSize(8);
   doc.setTextColor(...MID_GRAY);
-  doc.text('BIOSYNC PEPTIDES', PW - MARGIN, 13, { align: 'right' });
+  doc.text('BioSync', PW - MARGIN - 26, 10);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(4);
+  doc.text('PEPTIDES', PW - MARGIN, 14, { align: 'right' });
 
-  // Product image - scaled for A5
-  const imgW = 85;
-  const imgH = 85;
+  // Product image - wider aspect ratio matching catalog composite images (9:7)
+  const imgW = 120;
+  const imgH = 93;
   const imgX = (PW - imgW) / 2;
   if (productImage) {
     try {
-      doc.addImage(productImage, 'PNG', imgX, 26, imgW, imgH);
+      doc.addImage(productImage, 'PNG', imgX, 24, imgW, imgH);
     } catch (e) {
-      roundedRect(doc, imgX, 26, imgW, imgH, 4, LIGHT_GRAY, MID_GRAY);
+      roundedRect(doc, imgX, 24, imgW, imgH, 4, LIGHT_GRAY, MID_GRAY);
       centerText(doc, product.name, 70, 12, MID_GRAY, 'helvetica', 'normal');
     }
   } else {
-    roundedRect(doc, imgX, 26, imgW, imgH, 4, LIGHT_GRAY, MID_GRAY);
+    roundedRect(doc, imgX, 24, imgW, imgH, 4, LIGHT_GRAY, MID_GRAY);
     centerText(doc, product.name, 70, 12, MID_GRAY, 'helvetica', 'normal');
   }
 
-  let y = 118;
+  let y = 124;
 
   // Product name
   centerText(doc, product.name.toUpperCase(), y, 20, DARK);
