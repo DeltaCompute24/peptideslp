@@ -318,7 +318,7 @@ export default function EbookLead() {
                 </div>
 
                 <a
-                  href={`https://wa.me/16088954666?text=${encodeURIComponent("Hi! I just downloaded the BioSync Peptide Protocol E-Book. I'd like to learn more.")}`}
+                  href={`https://wa.me/13124781662?text=${encodeURIComponent("Hi! I just downloaded the BioSync Peptide Protocol E-Book. I'd like to learn more.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{

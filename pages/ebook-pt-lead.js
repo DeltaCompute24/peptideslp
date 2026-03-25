@@ -318,7 +318,7 @@ export default function EbookPTLead() {
                 </div>
 
                 <a
-                  href={`https://wa.me/16088954666?text=${encodeURIComponent("Oi! Acabei de baixar o E-Book de Protocolos Peptidicos da BioSync. Gostaria de saber mais.")}`}
+                  href={`https://wa.me/13124781662?text=${encodeURIComponent("Oi! Acabei de baixar o E-Book de Protocolos Peptidicos da BioSync. Gostaria de saber mais.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
